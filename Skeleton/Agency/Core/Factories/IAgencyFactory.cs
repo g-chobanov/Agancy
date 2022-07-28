@@ -15,6 +15,8 @@ namespace Agency.Core.Contracts
 
         ITicket CreateTicket(IJourney journey, decimal administrativeCosts);
 
-        IVehicle CreateTruck(int passengerCapacity, decimal pricePerKilometer);
+        ITruck CreateTruck(int passengerCapacity, decimal pricePerKilometer, int storage);
+
+        ICargoShip CreateCargoShip(int passengerCapacity, decimal pricePerKilometer, double cargo);
     }
 }

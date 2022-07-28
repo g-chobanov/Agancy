@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Agency.Models
 {
+
     static class ValidatorUtility
     {
         public static void ValidateAnnotations(Object o)
@@ -13,7 +14,7 @@ namespace Agency.Models
 
             var result = new List<ValidationResult>();
             bool isValid = Validator.TryValidateObject(o, context, result, true);
-            if (isValid == false)
+            if (!isValid)
             {
                 throw new ArgumentException(result[0].ErrorMessage);
             }

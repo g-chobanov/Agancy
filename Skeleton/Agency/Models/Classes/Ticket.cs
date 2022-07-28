@@ -7,15 +7,9 @@ namespace Agency.Models.Classes
 {
     internal class Ticket : ITicket
     {
-        public decimal AdministrativeCosts { get; }
+        public decimal AdministrativeCosts { get; set; }
 
-        public IJourney Journey { get; }
-
-        public Ticket(IJourney journey ,decimal administrativeCosts)
-        { 
-            Journey = journey;
-            AdministrativeCosts = administrativeCosts;     
-        }
+        public IJourney Journey { get; set; }
 
         public decimal CalculatePrice()
         {
