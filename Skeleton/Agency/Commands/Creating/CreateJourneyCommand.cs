@@ -29,7 +29,7 @@ namespace Agency.Commands.Creating
                 startLocation = parameters[0];
                 destination = parameters[1];
                 distance = int.Parse(parameters[2]);
-                vehicle = this.engine.Vehicles[int.Parse(parameters[3])];
+                vehicle = this.engine.AgencyDatabase.Vehicles[int.Parse(parameters[3])];
             }
             catch
             {
@@ -39,7 +39,7 @@ namespace Agency.Commands.Creating
             try
             {
                 var journey = this.factory.CreateJourney(startLocation, destination, distance, vehicle);
-                this.engine.Journeys.Add(journey);
+                this.engine.AgencyDatabase.Add(journey);
             }
             catch (ArgumentException AE)
             {
@@ -47,7 +47,7 @@ namespace Agency.Commands.Creating
             }
             
 
-            return $"Journey with ID {engine.Journeys.Count - 1} was created.";
+            return $"Journey with ID {engine.AgencyDatabase.Journeys.Count - 1} was created.";
         }
 
     }

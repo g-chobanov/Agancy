@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Agency.Models.Vehicles
 {
-    internal class Airplane :  IAirplane
+    public class Airplane :  IAirplane
     {
         [Range(IVehicle._minPassengers, IVehicle._maxPassengers, ErrorMessage = "A vehicle with less than {1} passengers or more than {2} passengers cannot exist!")]
         public int PassengerCapacity { get; set; }

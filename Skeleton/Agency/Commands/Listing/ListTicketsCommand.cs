@@ -19,7 +19,7 @@ namespace Agency.Commands.Creating
 
         public string Execute(IList<string> parameters)
         {
-            var tickets = this.engine.Tickets;
+            var tickets = this.engine.AgencyDatabase.Tickets;
 
             if (tickets.Count == 0)
             {

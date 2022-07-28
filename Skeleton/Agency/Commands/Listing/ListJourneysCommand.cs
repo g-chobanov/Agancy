@@ -18,7 +18,7 @@ namespace Agency.Commands.Creating
 
         public string Execute(IList<string> parameters)
         {
-            var journeys = this.engine.Journeys;
+            var journeys = this.engine.AgencyDatabase.Journeys;
 
             if (journeys.Count == 0)
             {

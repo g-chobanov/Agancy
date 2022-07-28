@@ -19,7 +19,7 @@ namespace Agency.Commands.Creating
 
         public string Execute(IList<string> parameters)
         {
-            var vehicles = this.engine.Vehicles;
+            var vehicles = this.engine.AgencyDatabase.Vehicles;
 
             if (vehicles.Count == 0)
             {

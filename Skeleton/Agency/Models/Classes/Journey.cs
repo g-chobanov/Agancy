@@ -7,7 +7,7 @@ using Agency.Models.Vehicles.Contracts;
 
 namespace Agency.Models.Classes
 {
-    internal class Journey : IJourney
+    public class Journey : IJourney
     {
         private const int _maxStringLength = 25;
         private const int _minStringLength = 5;

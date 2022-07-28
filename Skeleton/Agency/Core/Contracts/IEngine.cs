@@ -14,11 +14,6 @@ namespace Agency.Core.Contracts
 
         IParser Parser { get; set; }
 
-
-        IList<IVehicle> Vehicles { get; }
-
-        IList<IJourney> Journeys { get; }
-
-        IList<ITicket> Tickets { get; }
+        IAgencyDatabase AgencyDatabase { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Agency.Models.Vehicles
 {
 
-    internal class Bus :  IBus
+    public class Bus :  IBus
     {
         private const int _maxBusPassengers = 50;
         private const int _minBusPassengers = 10;

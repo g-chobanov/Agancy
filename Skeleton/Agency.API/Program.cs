@@ -9,6 +9,7 @@ builder.Services.AddSingleton<IEngine, Engine>();
 builder.Services.AddSingleton<IWriter, ConsoleWriter>();
 builder.Services.AddSingleton<IReader, ConsoleReader>();
 builder.Services.AddSingleton<IParser, CommandParser>();
+builder.Services.AddSingleton<IAgencyDatabase, AgencyDatabase>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

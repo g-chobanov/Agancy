@@ -31,14 +31,14 @@ namespace Agency.Commands.Creating
             try
             {
                 var bus = this.factory.CreateBus(passengerCapacity, pricePerKilometer);
-                this.engine.Vehicles.Add(bus);
+                this.engine.AgencyDatabase.Add(bus);
             }
             catch (ArgumentException AE)
             {
                 throw AE;
             }
 
-            return $"Vehicle with ID {engine.Vehicles.Count - 1} was created.";
+            return $"Vehicle with ID {engine.AgencyDatabase.Vehicles.Count - 1} was created.";
         }
 
     }

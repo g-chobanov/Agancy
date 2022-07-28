@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Agency.Models.Classes
 {
-    internal class Ticket : ITicket
+    public class Ticket : ITicket
     {
         public decimal AdministrativeCosts { get; set; }
 

@@ -16,15 +16,13 @@ namespace Agency.Core
         private const string NullProvidersExceptionMessage = "cannot be null.";
 
         // private because of Singleton design pattern
-        public Engine(IReader reader, IWriter writer, IParser parser)
+        public Engine(IReader reader, IWriter writer, IParser parser, IAgencyDatabase agencyDatabase)
         {
             this.Reader = reader;
             this.Writer = writer;
             this.Parser = parser;
+            this.AgencyDatabase = agencyDatabase;
 
-            this.Vehicles = new List<IVehicle>();
-            this.Journeys = new List<IJourney>();
-            this.Tickets = new List<ITicket>();
         }
 
         public static IEngine Instance
@@ -33,7 +31,7 @@ namespace Agency.Core
             {
                 if (instanceHolder == null)
                 {
-                    instanceHolder = new Engine(new ConsoleReader(), new ConsoleWriter(), new CommandParser());
+                    instanceHolder = new Engine(new ConsoleReader(), new ConsoleWriter(), new CommandParser(), new AgencyDatabase());
                 }
 
                 return instanceHolder;
@@ -47,11 +45,7 @@ namespace Agency.Core
 
         public IParser Parser { get; set; }
 
-        public IList<IVehicle> Vehicles { get; private set; }
-        
-        public IList<IJourney> Journeys { get; private set; }
-
-        public IList<ITicket> Tickets { get; private set; }
+        public IAgencyDatabase AgencyDatabase { get; set; }
 
         public void Start()
         {

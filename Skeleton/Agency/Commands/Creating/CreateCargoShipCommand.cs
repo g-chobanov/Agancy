@@ -32,7 +32,7 @@ namespace Agency.Commands.Creating
             try
             {
                 var cargoShip = this.factory.CreateCargoShip(passengerCapacity, pricePerKilometer, cargo);
-                this.engine.Vehicles.Add(cargoShip);
+                this.engine.AgencyDatabase.Add(cargoShip);
             }
             catch (ArgumentException AE)
             {
@@ -40,7 +40,7 @@ namespace Agency.Commands.Creating
             }
 
 
-            return $"Vehicle with ID {engine.Vehicles.Count - 1} was created.";
+            return $"Vehicle with ID {engine.AgencyDatabase.Vehicles.Count - 1} was created.";
         }
     }
 }

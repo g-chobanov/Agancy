@@ -36,7 +36,7 @@ namespace Traveller.Commands.Creating
             try
             {
                 var airplane = this.factory.CreateAirplane(passangerCapacity, pricePerKilometer, hasFreeFood);
-                this.engine.Vehicles.Add(airplane);
+                this.engine.AgencyDatabase.Add(airplane);
             }
             catch (ArgumentException AE)
             {
@@ -44,7 +44,7 @@ namespace Traveller.Commands.Creating
             }
             
 
-            return $"Vehicle with ID {engine.Vehicles.Count - 1} was created.";
+            return $"Vehicle with ID {engine.AgencyDatabase.Vehicles.Count - 1} was created.";
         }
     }
 }

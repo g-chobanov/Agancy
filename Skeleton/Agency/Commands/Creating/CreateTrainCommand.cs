@@ -34,7 +34,7 @@ namespace Agency.Commands.Creating
             try
             {
                 var train = this.factory.CreateTrain(passengerCapacity, pricePerKilometer, cartsCount);
-                this.engine.Vehicles.Add(train);
+                this.engine.AgencyDatabase.Add(train);
             }
             catch (ArgumentException AE)
             {
@@ -42,7 +42,7 @@ namespace Agency.Commands.Creating
             }
             
 
-            return $"Vehicle with ID {engine.Vehicles.Count - 1} was created.";
+            return $"Vehicle with ID {engine.AgencyDatabase.Vehicles.Count - 1} was created.";
         }
     }
 }

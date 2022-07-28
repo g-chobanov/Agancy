@@ -30,7 +30,7 @@ namespace Traveller.Commands.Creating
 
             try
             {
-                journey = this._engine.Journeys[int.Parse(parameters[0])];
+                journey = this._engine.AgencyDatabase.Journeys[int.Parse(parameters[0])];
                 administrativeCosts = decimal.Parse(parameters[1], CultureInfoConstant.Culture);
             }
             catch
@@ -39,9 +39,9 @@ namespace Traveller.Commands.Creating
             }
 
             var ticket = this._agencyFactory.CreateTicket(journey, administrativeCosts);
-            this._engine.Tickets.Add(ticket);
+            this._engine.AgencyDatabase.Add(ticket);
 
-            return $"Ticket with ID {_engine.Tickets.Count - 1} was created.";
+            return $"Ticket with ID {_engine.AgencyDatabase.Tickets.Count - 1} was created.";
         }
     }
 }
