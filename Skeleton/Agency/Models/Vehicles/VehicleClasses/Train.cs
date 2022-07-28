@@ -7,25 +7,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Agency.Models.Vehicles.VehicleClasses
 {
-    static class TrainConstants
-    {
-        public const int MaxTrainPassengers = 150;
-        public const int MinTrainPassengers = 30;
-
-        public const int MaxCarts = 15;
-        public const int MinCarts = 1;
-    }
     public class Train : ITrain
     {
+        private const int _maxTrainPassengers = 150;
+        private const int _minTrainPassengers = 30;
 
+        private const int _maxCarts = 15;
+        private const int _minCarts = 1;
 
-        [Range(TrainConstants.MinTrainPassengers, TrainConstants.MaxTrainPassengers, ErrorMessage = "A train cannot have less than 30 passengers or more than 150 passengers.")]
+        [Range(_minTrainPassengers, _maxTrainPassengers, ErrorMessage = "A train cannot have less than 30 passengers or more than 150 passengers.")]
         public int PassangerCapacity { get; }
 
         [Range(((double)LawsConstants.MinPricePerKillometer), ((double)LawsConstants.MaxPricePerKillometer), ErrorMessage = "A vehicle with a price per kilometer lower than $0.10 or higher than $2.50 cannot exist!")]
         public decimal PricePerKilometer { get; }
 
-        [Range(TrainConstants.MinCarts, TrainConstants.MaxCarts, ErrorMessage = "A train cannot have less than {1} cart or more than {2} carts.")]
+        [Range(_minCarts, _maxCarts, ErrorMessage = "A train cannot have less than {1} cart or more than {2} carts.")]
         public int Carts { get; }
 
         public VehicleType Type { get; } = VehicleType.Land;

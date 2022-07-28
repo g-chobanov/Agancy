@@ -47,5 +47,14 @@ namespace Agency.Core.Factories
         {
             return new Ticket(journey, administrativeCosts);
         }
+
+        public IVehicle CreateTruck(int passengerCapacity, decimal pricePerKilometer)
+        {
+            return new Truck
+            {
+                PassangerCapacity = passengerCapacity,
+                PricePerKilometer = pricePerKilometer
+            };
+        }
     }
 }

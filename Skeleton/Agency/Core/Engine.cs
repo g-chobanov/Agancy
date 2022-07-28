@@ -16,11 +16,11 @@ namespace Agency.Core
         private const string NullProvidersExceptionMessage = "cannot be null.";
 
         // private because of Singleton design pattern
-        private Engine()
+        public Engine(IReader reader, IWriter writer, IParser parser)
         {
-            this.Reader = new ConsoleReader();
-            this.Writer = new ConsoleWriter();
-            this.Parser = new CommandParser();
+            this.Reader = reader;
+            this.Writer = writer;
+            this.Parser = parser;
 
             this.Vehicles = new List<IVehicle>();
             this.Journeys = new List<IJourney>();
@@ -33,7 +33,7 @@ namespace Agency.Core
             {
                 if (instanceHolder == null)
                 {
-                    instanceHolder = new Engine();
+                    instanceHolder = new Engine(new ConsoleReader(), new ConsoleWriter(), new CommandParser());
                 }
 
                 return instanceHolder;
