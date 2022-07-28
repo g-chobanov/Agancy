@@ -14,7 +14,7 @@ namespace Agency.Models.Vehicles.VehicleClasses
         private const int _maxBusPassengers = 50;
         private const int _minBusPassengers = 10;
         
-        [Range(_minBusPassengers, _maxBusPassengers, ErrorMessage = "A bus cannot have less than 10 passengers or more than 50 passengers.")]
+        [Range(_minBusPassengers, _maxBusPassengers, ErrorMessage = "A bus cannot have less than {1} passengers or more than {2} passengers.")]
         public int PassangerCapacity { get; }
 
         [Range(((double)LawsConstants.MinPricePerKillometer), ((double)LawsConstants.MaxPricePerKillometer), ErrorMessage = "A vehicle with a price per kilometer lower than $0.10 or higher than $2.50 cannot exist!")]

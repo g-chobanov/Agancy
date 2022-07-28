@@ -9,7 +9,7 @@ namespace Agency.Models.Vehicles.VehicleClasses
 {
     internal class Airplane : IAirplane
     {
-        [Range(LawsConstants.MinPassengers, LawsConstants.MaxPassengers, ErrorMessage = "A vehicle with less than 1 passengers or more than 800 passengers cannot exist!")]
+        [Range(LawsConstants.MinPassengers, LawsConstants.MaxPassengers, ErrorMessage = "A vehicle with less than {1} passengers or more than {2} passengers cannot exist!")]
         public int PassangerCapacity { get; }
 
         [Range(((double)LawsConstants.MinPricePerKillometer), ((double)LawsConstants.MaxPricePerKillometer), ErrorMessage = "A vehicle with a price per kilometer lower than $0.10 or higher than $2.50 cannot exist!")]

@@ -7,23 +7,21 @@ using Agency.Models.Vehicles.Contracts;
 
 namespace Agency.Models.Classes
 {
-    static class JourneyConstants
-    {
-        public const int MaxStringLength = 25;
-        public const int MinStringLength = 5;
-
-        public const int MaxDistance = 5000;
-        public const int MinDistance = 5;
-    }
     internal class Journey : IJourney
     {
-        [StringLength(JourneyConstants.MaxStringLength, MinimumLength = JourneyConstants.MinStringLength, ErrorMessage = "The Destination's length cannot be less than 5 or more than 25 symbols long.")]
+        private const int _maxStringLength = 25;
+        private const int _minStringLength = 5;
+
+        private const int _maxDistance = 5000;
+        private const int _minDistance = 5;
+
+        [StringLength(_maxStringLength, MinimumLength = _minStringLength, ErrorMessage = "The Destination's length cannot be less than {2} or more than {1} symbols long.")]
         public string Destination { get; }
 
-        [Range(JourneyConstants.MinDistance, JourneyConstants.MaxDistance, ErrorMessage = "The Distance cannot be less than 5 or more than 5000 kilometers.")]
+        [Range(_minDistance, _maxDistance, ErrorMessage = "The Distance cannot be less than {1} or more than {2} kilometers.")]
         public int Distance { get; }
 
-        [StringLength(JourneyConstants.MaxStringLength, MinimumLength = JourneyConstants.MinStringLength, ErrorMessage = "The StartingLocation's length cannot be less than 5 or more than 25 symbols long.")]
+        [StringLength(_maxStringLength, MinimumLength = _minStringLength, ErrorMessage = "The StartingLocation's length cannot be less than {2} or more than {1} symbols long.")]
         public string StartLocation { get; }
 
         public IVehicle Vehicle { get; }
