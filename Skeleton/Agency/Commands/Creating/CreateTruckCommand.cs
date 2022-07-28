@@ -26,7 +26,7 @@ namespace Agency.Commands.Creating
             }
             catch
             {
-                throw new ArgumentException("Failed to parse CreateTrain command parameters.");
+                throw new ArgumentException("Failed to parse CreateTruck command parameters.");
             }
 
             try

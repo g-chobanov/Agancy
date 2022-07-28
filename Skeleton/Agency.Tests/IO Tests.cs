@@ -163,6 +163,27 @@ namespace Agency.Tests
         {
             this.ExecuteIOTest("025");
         }
+        [TestMethod]
+        public void Test_026()
+        {
+            this.ExecuteIOTest("026");
+        }
+        [TestMethod]
+        public void Test_027()
+        {
+            this.ExecuteIOTest("027");
+        }
+        [TestMethod]
+        public void Test_028()
+        {
+            this.ExecuteIOTest("028");
+        }
+        [TestMethod]
+        public void Test_029()
+        {
+            this.ExecuteIOTest("029");
+        }
+
 
         private void ExecuteIOTest(string testNumber)
         {

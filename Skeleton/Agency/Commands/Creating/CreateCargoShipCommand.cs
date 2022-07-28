@@ -22,17 +22,17 @@ namespace Agency.Commands.Creating
             {
                 passengerCapacity = int.Parse(parameters[0]);
                 pricePerKilometer = decimal.Parse(parameters[1], CultureInfoConstant.Culture);
-                cargo = double.Parse(parameters[2]);
+                cargo = double.Parse(parameters[2], CultureInfoConstant.Culture);
             }
             catch
             {
-                throw new ArgumentException("Failed to parse CreateTrain command parameters.");
+                throw new ArgumentException("Failed to parse CreateCargoShip command parameters.");
             }
 
             try
             {
-                var train = this.factory.CreateTruck(passengerCapacity, pricePerKilometer, storage);
-                this.engine.Vehicles.Add(train);
+                var cargoShip = this.factory.CreateCargoShip(passengerCapacity, pricePerKilometer, cargo);
+                this.engine.Vehicles.Add(cargoShip);
             }
             catch (ArgumentException AE)
             {
