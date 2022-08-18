@@ -1,15 +1,21 @@
 using Agency.Core;
 using Agency.Core.Contracts;
-using Agency.Core.Providers;
+using Agency.Models;
+using Agency.Models.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSingleton<IEngine, Engine>();
-builder.Services.AddSingleton<IWriter, ConsoleWriter>();
-builder.Services.AddSingleton<IReader, ConsoleReader>();
-builder.Services.AddSingleton<IParser, CommandParser>();
+
 builder.Services.AddSingleton<IAgencyDatabase, AgencyDatabase>();
+builder.Services.AddSingleton<ITruckService, TruckService>();
+builder.Services.AddSingleton<IBusService, BusService>();
+builder.Services.AddSingleton<ITrainService, TrainService>();
+builder.Services.AddSingleton<IVehicleService, VehicleService>();
+builder.Services.AddSingleton<IAirplaneService, AirplaneService>();
+builder.Services.AddSingleton<ICargoShipService, CargoShipService>();
+builder.Services.AddSingleton<IJourneyService, JourneyService>();
+builder.Services.AddSingleton<ITicketService, TicketService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

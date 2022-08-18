@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Agency.Models.Vehicles.Contracts
 {
-    public interface ITruck : IVehicle, IStoragable
+    public interface IStoragable
     {
-        
+        int Storage { get; set; }
     }
 }

@@ -4,11 +4,16 @@ using System.Text;
 using Agency.Models.Vehicles.Contracts;
 using Agency.Models.Vehicles.Enums;
 using System.ComponentModel.DataAnnotations;
+using Agency.Models.Enums;
+using System.Text.Json.Serialization;
 
 namespace Agency.Models.Vehicles
 {
     public class Airplane :  IAirplane
     {
+        [JsonIgnore]
+        public Guid ID { get; }
+
         [Range(IVehicle._minPassengers, IVehicle._maxPassengers, ErrorMessage = "A vehicle with less than {1} passengers or more than {2} passengers cannot exist!")]
         public int PassengerCapacity { get; set; }
 
@@ -17,7 +22,16 @@ namespace Agency.Models.Vehicles
 
         public bool HasFreeFood { get; set;  }
 
+        [JsonIgnore]
         public VehicleType Type => VehicleType.Air;
+
+        [JsonIgnore]
+        public VehicleClassType ClassType => VehicleClassType.Airplane;
+
+        public Airplane()
+        {
+            ID = Guid.NewGuid();
+        }
 
         public override string ToString()
         {

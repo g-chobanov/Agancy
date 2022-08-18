@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using Agency.Models.Enums;
+using System.Text.Json.Serialization;
 
 namespace Agency.Models.Vehicles
 {
@@ -15,6 +17,9 @@ namespace Agency.Models.Vehicles
         private const int _maxCarts = 15;
         private const int _minCarts = 1;
 
+        [JsonIgnore]
+        public Guid ID { get; }
+
         [Range(_minTrainPassengers, _maxTrainPassengers, ErrorMessage = "A train cannot have less than {1} passengers or more than {2} passengers.")]
         public int PassengerCapacity { get; set; }
 
@@ -24,7 +29,16 @@ namespace Agency.Models.Vehicles
         [Range(_minCarts, _maxCarts, ErrorMessage = "A train cannot have less than 1 cart or more than 15 carts.")]
         public int Carts { get; set; }
 
+        [JsonIgnore]
         public VehicleType Type => VehicleType.Land;
+
+        [JsonIgnore]
+        public VehicleClassType ClassType => VehicleClassType.Train;
+        public Train()
+        {
+            ID = Guid.NewGuid();
+        }
+
 
         public override string ToString()
         {

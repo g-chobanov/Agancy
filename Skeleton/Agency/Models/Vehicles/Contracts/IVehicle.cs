@@ -1,4 +1,8 @@
-﻿using Agency.Models.Vehicles.Enums;
+﻿using Agency.Models.Enums;
+using Agency.Models.Vehicles.Enums;
+using System;
+using System.Text.Json.Serialization;
+
 namespace Agency.Models.Vehicles.Contracts
 {
     public interface IVehicle
@@ -8,11 +12,16 @@ namespace Agency.Models.Vehicles.Contracts
 
         protected const decimal _maxPricePerKillometer = 2.50m;
         protected const decimal _minPricePerKillometer = 0.10m;
+
+        
+        Guid ID { get; }
         int PassengerCapacity { get; }
 
         decimal PricePerKilometer { get; }
 
         VehicleType Type { get; }
+
+        VehicleClassType ClassType { get; }
 
 
     }
