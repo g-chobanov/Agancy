@@ -1,40 +1,77 @@
 ﻿using Agency.Core.Contracts;
 using Agency.Models.Contracts;
+using Agency.Models.Data;
+using Agency.Models.DTOs;
 using Agency.Models.Enums;
 using Agency.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
+using Agency.Models.DTOMappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Agency.Models.Vehicles.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace Agency.Core
 {
-    public class AirplaneService : IAirplaneService
+    public class  AirplaneService : IAirplaneService
     {
-        private readonly IAgencyDatabase _db;
-        public AirplaneService(IAgencyDatabase database)
+        private readonly AgencyDatabaseContext _context;
+        public AirplaneService(AgencyDatabaseContext context)
         {
-            _db = database;
+            _context = context;
         }
 
-        public void AddAirplane(IAirplane Airplane)
+        public async Task AddAirplaneAsync(AirplaneDTO airplaneDTO)
         {
-            _db.Add(Airplane);
+            Airplane newAirplane = new Airplane();
+            _ = newAirplane.TakeFromDTO(airplaneDTO);
+            newAirplane.Type = VehicleType.Air;
+            await _context.Airplanes.AddAsync(newAirplane);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<AirplaneDTO> GetAirplaneAsync(Guid ID)
+        {
+            var airplane = await _context.Airplanes.FirstOrDefaultAsync(t => t.ID == ID);
+            if(airplane == null)
+            {
+                throw new ArgumentNullException("Airplane doesn't exist");
+            }
+            return airplane.ToDTO();
+        }
+
+        public async Task<List<AirplaneDTO>>  GetAirplanesAsync()
+        {
+            return await _context.Airplanes.Select(t => t.ToDTO()).ToListAsync();
+        }
+
+        public async Task DeleteAirplaneAsync(Guid ID)
+        {
+            var airplane = await _context.Airplanes.FirstOrDefaultAsync(t => t.ID == ID);
+            if (airplane == null)
+            {
+                throw new ArgumentNullException("Airplane doesn't exist");
+            }
+            _context.Airplanes.Remove(airplane);
+
+            await _context.SaveChangesAsync();
 
         }
 
-        //add && to where or FirstOrDefault
-        public IAirplane GetAirplane(Guid ID)
+        public async Task UpdateAirplaneAsync(Guid ID, AirplaneDTO airplaneDTO)
         {
-            return _db.Vehicles.FirstOrDefault(t => t.ClassType == VehicleClassType.Airplane && t.ID == ID) as IAirplane;
-        }
+            var airplane = await _context.Airplanes.FirstOrDefaultAsync(t => t.ID == ID);
+            if (airplane == null)
+            {
+                throw new ArgumentNullException("Airplane doesn't exist");
+            }
+            _ = airplane.TakeFromDTO(airplaneDTO);
 
-        //IAirplane
-        public List<Airplane> GetAirplanes()
-        {
-            return _db.Vehicles.Where(t => t.ClassType == VehicleClassType.Airplane).Select(t => t as Airplane).ToList();
+            await _context.SaveChangesAsync();
         }
     }
 }

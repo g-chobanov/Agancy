@@ -1,14 +1,19 @@
-﻿using Agency.Models.Vehicles;
+﻿using Agency.Models.DTOs;
+using Agency.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
 
 namespace Agency.Core.Contracts
 {
     public interface IBusService
     {
-        List<Bus> GetBuses();
+        Task<List<BusDTO>> GetBusesAsync();
 
-        void AddBus(IBus bus);
+        Task AddBusAsync(BusDTO busDTO);
 
-        IBus GetBus(Guid ID);
+        Task<BusDTO> GetBusAsync(Guid ID);
+
+        Task DeleteBusAsync(Guid ID);
+
+        Task UpdateBusAsync(Guid ID, BusDTO busDTO);
     }
 }

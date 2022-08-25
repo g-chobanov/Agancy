@@ -1,4 +1,5 @@
-﻿using Agency.Models.Vehicles;
+﻿using Agency.Models.DTOs;
+using Agency.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,14 @@ namespace Agency.Core.Contracts
 {
     public interface IAirplaneService
     {
-        List<Airplane> GetAirplanes();
+        Task<List<AirplaneDTO>> GetAirplanesAsync();
 
-        void AddAirplane(IAirplane Airplane);
+        Task AddAirplaneAsync(AirplaneDTO airplaneDTO);
 
-        IAirplane GetAirplane(Guid ID);
+        Task<AirplaneDTO> GetAirplaneAsync(Guid ID);
+
+        Task DeleteAirplaneAsync(Guid ID);
+
+        Task UpdateAirplaneAsync(Guid ID, AirplaneDTO airplaneDTO);
     }
 }

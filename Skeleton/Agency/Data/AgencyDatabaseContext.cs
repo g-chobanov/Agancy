@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using Agency.Models.Classes;
 using Agency.Models.Contracts;
+using Agency.Models.Models.Vehicles;
 using Agency.Models.Vehicles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Agency.API.Data
+namespace Agency.Models.Data
 {
-    public partial class AgencyDatabaseContext : DbContext , IAgencyDB
+    public partial class AgencyDatabaseContext : DbContext 
     {
         
         public AgencyDatabaseContext()
@@ -20,6 +21,7 @@ namespace Agency.API.Data
         {
         }
 
+        public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Bus> Buses { get; set; }
         public DbSet<Airplane> Airplanes { get; set; }
         public DbSet<Truck> Trucks { get; set; }
@@ -39,6 +41,8 @@ namespace Agency.API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Ticket>().Ignore(t => t.Journey);
+            base.OnModelCreating(modelBuilder);
             OnModelCreatingPartial(modelBuilder);
         }
 

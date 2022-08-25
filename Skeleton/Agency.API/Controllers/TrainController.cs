@@ -1,4 +1,5 @@
 ﻿using Agency.Core.Contracts;
+using Agency.Models.DTOs;
 using Agency.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
 using Microsoft.AspNetCore.Mvc;
@@ -15,32 +16,34 @@ namespace Agency.API.Controllers
         }
 
         [HttpGet("GetTrain")]
-        public ITrain GetTrain(Guid index)
+        public async Task<TrainDTO> GetTrain(Guid index)
         {
-            return _service.GetTrain(index);
-            //return _database.Vehicles.Select(t => t.ID == tindex) as Train;
+            return await _service.GetTrainAsync(index);
         }
-
+        //change it later
         [HttpGet("GetAllTrains")]
-        public List<Train> GetAllTrains()
+        public async Task<List<TrainDTO>> GetAllTrains()
         {
-            return _service.GetTrains();
+            return await _service.GetTrainsAsync();
         }
 
-        [HttpPost("CreateTrainJSON")]
-        public bool CreateTrainJSON([FromBody]Train train)
+        [HttpPost("CreateTrain")]
+        public async Task CreateTrain([FromBody] TrainDTO train)
         {
-            if(train.ClassType != Models.Enums.VehicleClassType.Train)
-            {
-                return false;
-            }
-            if(train.Type != Models.Vehicles.Enums.VehicleType.Land)
-            {
-                return false;
-            }
-            _service.AddTrain(train);
-            return true;
+            await _service.AddTrainAsync(train);
         }
-        
+
+        [HttpDelete("DeleteTrain")]
+        public async Task DeleteTrain(Guid index)
+        {
+            await _service.DeleteTrainAsync(index);
+        }
+
+        [HttpPut("UpdateTrain")]
+        public async Task UpdateTrain([FromBody] TrainDTO train, Guid ID)
+        {
+            await _service.UpdateTrainAsync(ID, train);
+        }
+
     }
 }

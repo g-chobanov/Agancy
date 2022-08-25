@@ -1,4 +1,5 @@
 ﻿using Agency.Core.Contracts;
+using Agency.Models.DTOs;
 using Agency.Models.Enums;
 using Agency.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
@@ -17,31 +18,33 @@ namespace Agency.API.Controllers
         }
 
         [HttpGet("GetAirplane")]
-        public IAirplane GetAirplane(Guid index)
+        public async Task<AirplaneDTO> GetAirplane(Guid index)
         {
-            return _service.GetAirplane(index);
+            return await _service.GetAirplaneAsync(index);
         }
         //change it later
         [HttpGet("GetAllAirplanes")]
-        public List<Airplane> GetAllAirplanes()
+        public async Task<List<AirplaneDTO>> GetAllAirplanes()
         {
-            return _service.GetAirplanes();
+            return await _service.GetAirplanesAsync();
         }
 
         [HttpPost("CreateAirplane")]
-        public bool CreateAirplane([FromBody] Airplane airplane)
+        public async Task CreateAirplane([FromBody] AirplaneDTO airplane)
         {
-            if (airplane.ClassType != VehicleClassType.Airplane)
-            {
-                return false;
-            }
-            if (airplane.Type != VehicleType.Air)
-            {
-                return false;
-            }
-            _service.AddAirplane(airplane);
-            return true;
+            await _service.AddAirplaneAsync(airplane);
         }
-        //delete airplane
+
+        [HttpDelete("DeleteAirplane")]
+        public async Task DeleteAirplane(Guid index)
+        {
+            await _service.DeleteAirplaneAsync(index);
+        }
+
+        [HttpPut("UpdateAirplane")]
+        public async Task UpdateAirplane([FromBody] AirplaneDTO airplane, Guid ID)
+        {
+            await _service.UpdateAirplaneAsync(ID, airplane);
+        }
     }
 }

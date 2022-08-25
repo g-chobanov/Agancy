@@ -1,5 +1,7 @@
 ﻿using Agency.Core.Contracts;
+using Agency.Models.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
+using Agency.Models.Vehicles.Enums;
 using Microsoft.AspNetCore.Mvc;
 namespace Agency.API.Controllers
 {
@@ -24,6 +26,12 @@ namespace Agency.API.Controllers
         public List<IVehicle> GetAllVehicles()
         {
             return _service.GetVehicles();
+        }
+
+        [HttpGet("GetVehiclesByType")]
+        public List<Vehicle> GetAllVehiclesByType(VehicleType type)
+        {
+            return _service.GetVehiclesByType(type);
         }
 
     }

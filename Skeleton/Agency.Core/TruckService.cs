@@ -8,30 +8,70 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Agency.Models.Data;
+using Agency.Models.DTOs;
+using Agency.Models.DTOMappers;
+using Agency.Models.Vehicles.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace Agency.Core
 {
     public class TruckService : ITruckService
     {
-        private readonly IAgencyDatabase _db;
-        public TruckService(IAgencyDatabase database)
+        private readonly AgencyDatabaseContext _context;
+        public TruckService(AgencyDatabaseContext context)
         {
-            _db = database;
+            _context = context;
         }
 
-        public void AddTruck(ITruck Truck)
+        public async Task AddTruckAsync(TruckDTO truckDTO)
         {
-            _db.Add(Truck);
+            Truck newTruck = new Truck();
+            _ = newTruck.TakeFromDTO(truckDTO);
+            newTruck.Type = VehicleType.Land;
+            await _context.Trucks.AddAsync(newTruck);
+
+            await _context.SaveChangesAsync();
         }
 
-        public ITruck GetTruck(Guid ID)
+        public async Task<TruckDTO> GetTruckAsync(Guid ID)
         {
-            return _db.Vehicles.FirstOrDefault(t => t.ClassType == VehicleClassType.Truck && t.ID == ID) as ITruck;
+            var truck = await _context.Trucks.FirstOrDefaultAsync(t => t.ID == ID);
+            if (truck == null)
+            {
+                throw new ArgumentNullException("Truck doesn't exist");
+            }
+            return truck.ToDTO();
         }
 
-        public List<Truck> GetTrucks()
+        public async Task<List<TruckDTO>> GetTrucksAsync()
         {
-            return _db.Vehicles.Where(t => t.ClassType == VehicleClassType.Truck).Select(t => t as Truck).ToList();
+            return await _context.Trucks.Select(t => t.ToDTO()).ToListAsync();
+        }
+
+        public async Task DeleteTruckAsync(Guid ID)
+        {
+            var truck = await _context.Trucks.FirstOrDefaultAsync(t => t.ID == ID);
+            if (truck == null)
+            {
+                throw new ArgumentNullException("Truck doesn't exist");
+            }
+            _context.Trucks.Remove(truck);
+
+            await _context.SaveChangesAsync();
+
+        }
+
+        public async Task UpdateTruckAsync(Guid ID, TruckDTO truckDTO)
+        {
+            var truck = await _context.Trucks.FirstOrDefaultAsync(t => t.ID == ID);
+            if (truck == null)
+            {
+                throw new ArgumentNullException("Truck doesn't exist");
+            }
+            _ = truck.TakeFromDTO(truckDTO);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

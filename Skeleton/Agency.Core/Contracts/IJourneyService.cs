@@ -1,4 +1,5 @@
-﻿using Agency.Models.Contracts;
+﻿using Agency.Models.Classes;
+using Agency.Models.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Agency.Core.Contracts
     {
         List<IJourney> GetJourneys();
 
-        void AddJourney(IJourney journey);
+        bool AddJourney(Journey journey, Guid vehicleID);
 
         IJourney GetJourney(Guid ID);
     }

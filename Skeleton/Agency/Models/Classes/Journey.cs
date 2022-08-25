@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Text.Json.Serialization;
 using Agency.Models.Contracts;
+using Agency.Models.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
 
 namespace Agency.Models.Classes
@@ -16,8 +18,9 @@ namespace Agency.Models.Classes
         private const int _maxDistance = 5000;
         private const int _minDistance = 5;
 
+        [Key]
         [JsonIgnore]
-        public Guid ID { get; }
+        public Guid ID { get; set; }
 
         [StringLength(_maxStringLength, MinimumLength = _minStringLength, ErrorMessage = "The Destination's length cannot be less than {2} or more than {1} symbols long.")]
         public string Destination { get; set;  }
@@ -28,8 +31,11 @@ namespace Agency.Models.Classes
         [StringLength(_maxStringLength, MinimumLength = _minStringLength, ErrorMessage = "The StartingLocation's length cannot be less than {2} or more than {1} symbols long.")]
         public string StartLocation { get; set; }
 
+        
+        public Guid VehicleId { get; set; }
+        [ForeignKey("VehicleId")]
         [JsonIgnore]
-        public IVehicle Vehicle { get; set;  }
+        public Vehicle Vehicle { get; set; }
 
         public Journey()
         {

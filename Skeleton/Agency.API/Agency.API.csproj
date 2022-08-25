@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.7.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
@@ -19,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Agency.Core\Agency.Core.csproj" />
     <ProjectReference Include="..\Agency\Agency.Models.csproj" />
+    <ProjectReference Include="..\DBTests\DBTests.csproj" />
   </ItemGroup>
 
 </Project>

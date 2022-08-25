@@ -10,11 +10,9 @@ namespace Agency.API.Controllers
     [Route("[controller]")]
     public class JourneyController : ControllerBase
     {
-        private readonly IVehicleService _vehicleService;
         private readonly IJourneyService _journeyService;
-        public JourneyController(IVehicleService vehicleService, IJourneyService journeyService)
+        public JourneyController(IJourneyService journeyService)
         {
-            _vehicleService = vehicleService;
             _journeyService = journeyService;
         }
 
@@ -32,15 +30,7 @@ namespace Agency.API.Controllers
         [HttpPost("CreateJourney")]
         public bool CreateJourney([FromBody] Journey journey, Guid vehicleID)
         {
-            IVehicle vehicle = _vehicleService.GetVehicle(vehicleID);
-            if (vehicle == null)
-            {
-                return false;
-            }
-            journey.Vehicle = vehicle;
-            _journeyService.AddJourney(journey);
-            return true;
-            
+            return _journeyService.AddJourney(journey, vehicleID);
         }
     }
     

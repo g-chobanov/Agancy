@@ -1,4 +1,5 @@
 ﻿using Agency.Core.Contracts;
+using Agency.Models.DTOs;
 using Agency.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
 using Microsoft.AspNetCore.Mvc;
@@ -15,32 +16,34 @@ namespace Agency.API.Controllers
         }
 
         [HttpGet("GetTruck")]
-        public ITruck GetTruck(Guid index)
+        public async Task<TruckDTO> GetTruck(Guid index)
         {
-            return _service.GetTruck(index);
+            return await _service.GetTruckAsync(index);
         }
-
         [HttpGet("GetAllTrucks")]
-        public List<Truck> GetAllTrucks()
+        public async Task<List<TruckDTO>> GetAllTrucks()
         {
-            return _service.GetTrucks();
+            return await _service.GetTrucksAsync();
         }
 
-        [HttpPost("CreateTruckJSON")]
-        public bool CreateTruckJSON([FromBody] Truck Truck)
+        [HttpPost("CreateTruck")]
+        public async Task CreateTruck([FromBody] TruckDTO truck)
         {
-            if (Truck.ClassType != Models.Enums.VehicleClassType.Truck)
-            {
-                return false;
-            }
-            if (Truck.Type != Models.Vehicles.Enums.VehicleType.Land)
-            {
-                return false;
-            }
-            _service.AddTruck(Truck);
-            return true;
+            await _service.AddTruckAsync(truck);
         }
 
-        
+        [HttpDelete("DeleteTruck")]
+        public async Task DeleteTruck(Guid index)
+        {
+            await _service.DeleteTruckAsync(index);
+        }
+
+        [HttpPut("UpdateTruck")]
+        public async Task UpdateTruck([FromBody] TruckDTO truck, Guid ID)
+        {
+            await _service.UpdateTruckAsync(ID, truck);
+        }
+
+
     }
 }

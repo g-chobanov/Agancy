@@ -1,6 +1,8 @@
 ﻿using Agency.Models.Contracts;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -8,11 +10,13 @@ namespace Agency.Models.Classes
 {
     public class Ticket : ITicket
     {
+        [Key]
         [JsonIgnore]
-        public Guid ID { get; }
+        public Guid ID { get; set; }
         public decimal AdministrativeCosts { get; set; }
 
-        [JsonIgnore]
+        [ForeignKey("Journey")]
+        public Guid JourneyID { get; set; }
         public IJourney Journey { get; set; }
 
         public Ticket()

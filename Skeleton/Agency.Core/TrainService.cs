@@ -8,31 +8,70 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Agency.Models.DTOMappers;
+using Agency.Models.Data;
+using Agency.Models.DTOs;
+using Agency.Models.Vehicles.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace Agency.Core
 {
     public class TrainService : ITrainService
     {
-        private readonly IAgencyDatabase _db;
-
-        public TrainService(IAgencyDatabase db)
+        private readonly AgencyDatabaseContext _context;
+        public TrainService(AgencyDatabaseContext context)
         {
-            _db = db;
+            _context = context;
         }
 
-        public void AddTrain(ITrain train)
+        public async Task AddTrainAsync(TrainDTO trainDTO)
         {
-            _db.Add(train);
+            Train newTrain = new Train();
+            _ = newTrain.TakeFromDTO(trainDTO);
+            newTrain.Type = VehicleType.Land;
+            await _context.Trains.AddAsync(newTrain);
+
+            await _context.SaveChangesAsync();
         }
 
-        public ITrain GetTrain(Guid ID)
+        public async Task<TrainDTO> GetTrainAsync(Guid ID)
         {
-            return _db.Vehicles.FirstOrDefault(t => t.ClassType == VehicleClassType.Train && t.ID == ID) as ITrain;
+            var train = await _context.Trains.FirstOrDefaultAsync(t => t.ID == ID);
+            if (train == null)
+            {
+                throw new ArgumentNullException("Train doesn't exist");
+            }
+            return train.ToDTO();
         }
 
-        public List<Train> GetTrains()
+        public async Task<List<TrainDTO>> GetTrainsAsync()
         {
-            return _db.Vehicles.Where(t => t.ClassType == VehicleClassType.Train).Select(t => t as Train).ToList();
+            return await _context.Trains.Select(t => t.ToDTO()).ToListAsync();
+        }
+
+        public async Task DeleteTrainAsync(Guid ID)
+        {
+            var train = await _context.Trains.FirstOrDefaultAsync(t => t.ID == ID);
+            if (train == null)
+            {
+                throw new ArgumentNullException("Train doesn't exist");
+            }
+            _context.Trains.Remove(train);
+
+            await _context.SaveChangesAsync();
+
+        }
+
+        public async Task UpdateTrainAsync(Guid ID, TrainDTO trainDTO)
+        {
+            var train = await _context.Trains.FirstOrDefaultAsync(t => t.ID == ID);
+            if (train == null)
+            {
+                throw new ArgumentNullException("Train doesn't exist");
+            }
+            _ = train.TakeFromDTO(trainDTO);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

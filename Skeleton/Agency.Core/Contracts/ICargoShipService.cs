@@ -1,4 +1,5 @@
-﻿using Agency.Models.Vehicles;
+﻿using Agency.Models.DTOs;
+using Agency.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,14 @@ namespace Agency.Core.Contracts
 {
     public interface ICargoShipService
     {
-        List<CargoShip> GetCargoShips();
+        Task<List<CargoShipDTO>> GetCargoShipsAsync();
 
-        void AddCargoShip(ICargoShip CargoShip);
+        Task AddCargoShipAsync(CargoShipDTO cargoShupDTO);
 
-        ICargoShip GetCargoShip(Guid ID);
+        Task<CargoShipDTO> GetCargoShipAsync(Guid ID);
+
+        Task DeleteCargoShipAsync(Guid ID);
+
+        Task UpdateCargoShipAsync(Guid ID, CargoShipDTO cargoShupDTO);
     }
 }

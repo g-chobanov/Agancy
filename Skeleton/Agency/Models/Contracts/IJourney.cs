@@ -1,4 +1,5 @@
-﻿using Agency.Models.Vehicles.Contracts;
+﻿using Agency.Models.Models.Vehicles;
+using Agency.Models.Vehicles.Contracts;
 using System;
 
 namespace Agency.Models.Contracts
@@ -12,7 +13,9 @@ namespace Agency.Models.Contracts
 
         string StartLocation { get;}
 
-        IVehicle Vehicle { get; }
+        Vehicle Vehicle { get; }
+
+        Guid VehicleId { get; }
 
         decimal CalculateTravelCosts();
     }

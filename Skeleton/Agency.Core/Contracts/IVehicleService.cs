@@ -1,4 +1,6 @@
-﻿using Agency.Models.Vehicles.Contracts;
+﻿using Agency.Models.Models.Vehicles;
+using Agency.Models.Vehicles.Contracts;
+using Agency.Models.Vehicles.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +14,7 @@ namespace Agency.Core.Contracts
         List<IVehicle> GetVehicles();
 
         IVehicle GetVehicle(Guid id);
+
+        List<Vehicle> GetVehiclesByType(VehicleType type);
     }
 }

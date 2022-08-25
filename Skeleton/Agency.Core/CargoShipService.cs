@@ -1,37 +1,78 @@
 ﻿using Agency.Core.Contracts;
 using Agency.Models.Contracts;
+using Agency.Models.Data;
+using Agency.Models.DTOMappers;
+using Agency.Models.DTOs;
 using Agency.Models.Enums;
 using Agency.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
+using Agency.Models.Vehicles.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Agency.Core
 {
     public class CargoShipService : ICargoShipService
     {
-        private readonly IAgencyDatabase _db;
-        public CargoShipService(IAgencyDatabase database)
+        private readonly AgencyDatabaseContext _context;
+        public CargoShipService(AgencyDatabaseContext context)
         {
-            _db = database;
+            _context = context;
         }
 
-        public void AddCargoShip(ICargoShip CargoShip)
+        public async Task AddCargoShipAsync(CargoShipDTO cargoShipDTO)
         {
-            _db.Add(CargoShip);
+            CargoShip newCargoShip = new CargoShip();
+            _ = newCargoShip.TakeFromDTO(cargoShipDTO);
+            newCargoShip.Type = VehicleType.Sea;
+            await _context.CargoShips.AddAsync(newCargoShip);
+
+            await _context.SaveChangesAsync();
         }
 
-        public ICargoShip GetCargoShip(Guid ID)
+        public async Task<CargoShipDTO> GetCargoShipAsync(Guid ID)
         {
-            return _db.Vehicles.FirstOrDefault(t => t.ClassType == VehicleClassType.CargoShip && t.ID == ID) as ICargoShip;
+            var cargoShip = await _context.CargoShips.FirstOrDefaultAsync(t => t.ID == ID);
+            if (cargoShip == null)
+            {
+                throw new ArgumentNullException("CargoShip doesn't exist");
+            }
+            return cargoShip.ToDTO();
         }
 
-        public List<CargoShip> GetCargoShips()
+        public async Task<List<CargoShipDTO>> GetCargoShipsAsync()
         {
-            return _db.Vehicles.Where(t => t.ClassType == VehicleClassType.CargoShip).Select(t => t as CargoShip).ToList();
+            return await _context.CargoShips.Select(t => t.ToDTO()).ToListAsync();
+        }
+
+        public async Task DeleteCargoShipAsync(Guid ID)
+        {
+            var cargoShip = await _context.CargoShips.FirstOrDefaultAsync(t => t.ID == ID);
+            if (cargoShip == null)
+            {
+                throw new ArgumentNullException("CargoShip doesn't exist");
+            }
+            _context.CargoShips.Remove(cargoShip);
+
+            await _context.SaveChangesAsync();
+
+        }
+
+        public async Task UpdateCargoShipAsync(Guid ID, CargoShipDTO cargoShipDTO)
+        {
+            var cargoShip = await _context.CargoShips.FirstOrDefaultAsync(t => t.ID == ID);
+            if (cargoShip == null)
+            {
+                throw new ArgumentNullException("CargoShip doesn't exist");
+            }
+            _ = cargoShip.TakeFromDTO(cargoShipDTO);
+
+            await _context.SaveChangesAsync();
         }
     }
+
 }

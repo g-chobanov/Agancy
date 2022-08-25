@@ -1,4 +1,5 @@
 ﻿using Agency.Core.Contracts;
+using Agency.Models.DTOs;
 using Agency.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
 using Microsoft.AspNetCore.Mvc;
@@ -9,35 +10,39 @@ namespace Agency.API.Controllers
     public class BusController : ControllerBase
     {
         private readonly IBusService _service;
-        public BusController(IBusService service)
+        public BusController (IBusService service)
         {
             _service = service;
         }
 
         [HttpGet("GetBus")]
-        public IBus GetBus(Guid index)
+        public async Task<BusDTO> GetBus(Guid index)
         {
-            return _service.GetBus(index);
+            return await _service.GetBusAsync(index);
         }
+
         [HttpGet("GetAllBuses")]
-        public List<Bus> GetAllVehicles() 
+        public async Task<List<BusDTO>> GetAllBuses()
         {
-            return _service.GetBuses();
+            return await _service.GetBusesAsync();
         }
 
         [HttpPost("CreateBus")]
-        public bool CreateBus([FromBody] Bus bus)
+        public async Task CreateBus([FromBody] BusDTO bus)
         {
-            if (bus.ClassType != Models.Enums.VehicleClassType.Bus)
-            {
-                return false;
-            }
-            if (bus.Type != Models.Vehicles.Enums.VehicleType.Land)
-            {
-                return false;
-            }
-            _service.AddBus(bus);
-            return true;
+            await _service.AddBusAsync(bus);
+        }
+
+        [HttpDelete("DeleteBus")]
+        public async Task DeleteBus(Guid index)
+        {
+            await _service.DeleteBusAsync(index);
+        }
+
+        [HttpPut("UpdateBus")]
+        public async Task UpdateBus([FromBody] BusDTO bus, Guid ID)
+        {
+            await _service.UpdateBusAsync(ID, bus);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Agency.Core.Contracts;
+using Agency.Models.DTOs;
 using Agency.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
 using Microsoft.AspNetCore.Mvc;
@@ -15,29 +16,33 @@ namespace Agency.API.Controllers
         }
 
         [HttpGet("GetCargoShip")]
-        public ICargoShip GetCargoShip(Guid index)
+        public async Task<CargoShipDTO> GetCargoShip(Guid index)
         {
-            return _service.GetCargoShip(index);
+            return await _service.GetCargoShipAsync(index);
         }
+        //change it later
         [HttpGet("GetAllCargoShips")]
-        public List<CargoShip> GetAllVehicles()
+        public async Task<List<CargoShipDTO>> GetAllCargoShips()
         {
-            return _service.GetCargoShips();
+            return await _service.GetCargoShipsAsync();
         }
 
         [HttpPost("CreateCargoShip")]
-        public bool CreateCargoShip([FromBody] CargoShip cargoShip)
+        public async Task CreateCargoShip([FromBody] CargoShipDTO cargoShip)
         {
-            if (cargoShip.ClassType != Models.Enums.VehicleClassType.CargoShip)
-            {
-                return false;
-            }
-            if (cargoShip.Type != Models.Vehicles.Enums.VehicleType.Sea)
-            {
-                return false;
-            }
-            _service.AddCargoShip(cargoShip);
-            return true;
+            await _service.AddCargoShipAsync(cargoShip);
+        }
+
+        [HttpDelete("DeleteCargoShip")]
+        public async Task DeleteCargoShip(Guid index)
+        {
+            await _service.DeleteCargoShipAsync(index);
+        }
+
+        [HttpPut("UpdateCargoShip")]
+        public async Task UpdateCargoShip([FromBody] CargoShipDTO cargoShip, Guid ID)
+        {
+            await _service.UpdateCargoShipAsync(ID, cargoShip);
         }
     }
 }

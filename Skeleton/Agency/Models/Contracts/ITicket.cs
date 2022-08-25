@@ -9,6 +9,8 @@ namespace Agency.Models.Contracts
 
         IJourney Journey { get; }
 
+        Guid JourneyID { get; }
+
         decimal CalculatePrice();
     }
 }

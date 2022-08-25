@@ -14,10 +14,10 @@ namespace Agency.Models.Vehicles.Contracts
         protected const decimal _minPricePerKillometer = 0.10m;
 
         
-        Guid ID { get; }
-        int PassengerCapacity { get; }
+        Guid ID { get; set; }
+        int PassengerCapacity { get; set; }
 
-        decimal PricePerKilometer { get; }
+        decimal PricePerKilometer { get; set; }
 
         VehicleType Type { get; }
 
