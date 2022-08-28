@@ -24,7 +24,7 @@ namespace Agency.Core
             _context = context;
         }
 
-        public async Task AddTruckAsync(TruckDTO truckDTO)
+        public async Task CreateTruckAsync(TruckDTO truckDTO)
         {
             Truck newTruck = new Truck();
             _ = newTruck.TakeFromDTO(truckDTO);
@@ -62,9 +62,9 @@ namespace Agency.Core
 
         }
 
-        public async Task UpdateTruckAsync(Guid ID, TruckDTO truckDTO)
+        public async Task UpdateTruckAsync(TruckDTO truckDTO)
         {
-            var truck = await _context.Trucks.FirstOrDefaultAsync(t => t.ID == ID);
+            var truck = await _context.Trucks.FirstOrDefaultAsync(t => t.ID == truckDTO.ID);
             if (truck == null)
             {
                 throw new ArgumentNullException("Truck doesn't exist");

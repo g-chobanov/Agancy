@@ -1,4 +1,5 @@
 ﻿using Agency.Core.Contracts;
+using Agency.Models.DTOs;
 using Agency.Models.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
 using Agency.Models.Vehicles.Enums;
@@ -17,21 +18,21 @@ namespace Agency.API.Controllers
         }
 
         [HttpGet("GetVehicle")]
-        public IVehicle GetVehicle(Guid index)
+        public async Task<VehicleDTO> GetVehicle(Guid id)
         {
-            return _service.GetVehicle(index);
+            return await _service.GetVehicleAsync(id);
         }
 
         [HttpGet("GetAllVehicles")]
-        public List<IVehicle> GetAllVehicles()
+        public async Task<List<VehicleDTO>> GetAllVehicles()
         {
-            return _service.GetVehicles();
+            return await _service.GetVehiclesAsync();
         }
 
         [HttpGet("GetVehiclesByType")]
-        public List<Vehicle> GetAllVehiclesByType(VehicleType type)
+        public async Task<List<VehicleDTO>> GetAllVehiclesByType(VehicleType type)
         {
-            return _service.GetVehiclesByType(type);
+            return await _service.GetVehiclesByTypeAsync(type);
         }
 
     }

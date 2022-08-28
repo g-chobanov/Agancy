@@ -24,7 +24,7 @@ namespace Agency.Core
             _context = context;
         }
 
-        public async Task AddCargoShipAsync(CargoShipDTO cargoShipDTO)
+        public async Task CreateCargoShipAsync(CargoShipDTO cargoShipDTO)
         {
             CargoShip newCargoShip = new CargoShip();
             _ = newCargoShip.TakeFromDTO(cargoShipDTO);
@@ -62,9 +62,9 @@ namespace Agency.Core
 
         }
 
-        public async Task UpdateCargoShipAsync(Guid ID, CargoShipDTO cargoShipDTO)
+        public async Task UpdateCargoShipAsync(CargoShipDTO cargoShipDTO)
         {
-            var cargoShip = await _context.CargoShips.FirstOrDefaultAsync(t => t.ID == ID);
+            var cargoShip = await _context.CargoShips.FirstOrDefaultAsync(t => t.ID == cargoShipDTO.ID);
             if (cargoShip == null)
             {
                 throw new ArgumentNullException("CargoShip doesn't exist");

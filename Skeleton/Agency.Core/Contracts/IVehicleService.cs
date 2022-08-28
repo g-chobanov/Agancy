@@ -1,4 +1,5 @@
-﻿using Agency.Models.Models.Vehicles;
+﻿using Agency.Models.DTOs;
+using Agency.Models.Models.Vehicles;
 using Agency.Models.Vehicles.Contracts;
 using Agency.Models.Vehicles.Enums;
 using System;
@@ -11,10 +12,12 @@ namespace Agency.Core.Contracts
 {
     public interface IVehicleService
     {
-        List<IVehicle> GetVehicles();
+        Task<List<VehicleDTO>> GetVehiclesAsync();
 
-        IVehicle GetVehicle(Guid id);
+        Task<VehicleDTO> GetVehicleAsync(Guid id);
 
-        List<Vehicle> GetVehiclesByType(VehicleType type);
+        Task<List<VehicleDTO>> GetVehiclesByTypeAsync(VehicleType type);
+
+       
     }
 }

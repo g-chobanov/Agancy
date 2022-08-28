@@ -15,7 +15,6 @@ namespace Agency.Models.Vehicles
     public class Airplane : Vehicle, IAirplane
     {
         [Key]
-        [JsonIgnore]
         public override Guid ID { get; set; }
 
         public override int PassengerCapacity { get; set; }
@@ -25,10 +24,8 @@ namespace Agency.Models.Vehicles
 
         public bool HasFreeFood { get; set;  }
 
-        [JsonIgnore]
         public override VehicleType Type { get; set; }
 
-        [JsonIgnore]
         public override VehicleClassType ClassType => VehicleClassType.Airplane;
 
         public override string ToString()

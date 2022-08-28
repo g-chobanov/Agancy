@@ -34,12 +34,12 @@ namespace Agency.Tests.TrainServiceTest
             };
 
             //Act 
-            await sut.AddTrainAsync(testTrain);
-            var acutalTrain = testContext.Trains.FirstOrDefault(t => t.PassengerCapacity == testCap && t.PricePerKilometer == testPPK && t.Carts == testCarts);
+            await sut.CreateTrainAsync(testTrain);
+            var actualTrain = testContext.Trains.FirstOrDefault(t => t.PassengerCapacity == testCap && t.PricePerKilometer == testPPK && t.Carts == testCarts);
 
             //Assert
-            Assert.IsNotNull(acutalTrain);
-            Assert.AreEqual(VehicleType.Land, acutalTrain.Type);
+            Assert.IsNotNull(actualTrain);
+            Assert.AreEqual(VehicleType.Land, actualTrain.Type);
         }
 
     }

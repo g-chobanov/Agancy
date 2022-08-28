@@ -5,23 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Agency.Models.Migrations
 {
-    public partial class InitialDBMigration : Migration
+    public partial class PlsWorkMan : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Tickets",
-                columns: table => new
-                {
-                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AdministrativeCosts = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    JourneyID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tickets", x => x.ID);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Vehicles",
                 columns: table => new
@@ -141,10 +128,34 @@ namespace Agency.Models.Migrations
                         principalColumn: "ID");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Tickets",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AdministrativeCosts = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    JourneyID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tickets", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Journeys_JourneyID",
+                        column: x => x.JourneyID,
+                        principalTable: "Journeys",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Journeys_VehicleId",
                 table: "Journeys",
                 column: "VehicleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_JourneyID",
+                table: "Tickets",
+                column: "JourneyID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -159,9 +170,6 @@ namespace Agency.Models.Migrations
                 name: "CargoShips");
 
             migrationBuilder.DropTable(
-                name: "Journeys");
-
-            migrationBuilder.DropTable(
                 name: "Tickets");
 
             migrationBuilder.DropTable(
@@ -169,6 +177,9 @@ namespace Agency.Models.Migrations
 
             migrationBuilder.DropTable(
                 name: "Trucks");
+
+            migrationBuilder.DropTable(
+                name: "Journeys");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");

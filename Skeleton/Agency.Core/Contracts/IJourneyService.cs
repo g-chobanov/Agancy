@@ -1,5 +1,7 @@
 ﻿using Agency.Models.Classes;
 using Agency.Models.Contracts;
+using Agency.Models.DTOs;
+using Agency.Models.Vehicles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +12,16 @@ namespace Agency.Core.Contracts
 {
     public interface IJourneyService
     {
-        List<IJourney> GetJourneys();
+        Task<List<JourneyDTO>> GetJourneysAsync();
 
-        bool AddJourney(Journey journey, Guid vehicleID);
+        Task<bool> CreateJourneyAsync(JourneyDTO journey);
 
-        IJourney GetJourney(Guid ID);
+        Task<JourneyDTO> GetJourneyAsync(Guid ID);
+
+        Task DeleteJourneyAsync(Guid ID);
+
+        Task UpdateJourneyAsync(JourneyDTO journeyDTO);
+
+        Task<decimal> GetTravelCostsAsync(Guid ID);
     }
 }

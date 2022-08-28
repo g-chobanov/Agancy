@@ -1,0 +1,11 @@
+<td> {{ airplane.passengerCapacity }} </td>
+<td> {{ airplane.pricePerKilometer }} </td>
+<td> {{ airplane.hasFreeFood }} </td>
+<button (click)="onEditClick()"> edit </button>
+<airplane-form *ngIf="isEditing" 
+    [isEditing]="isEditing"
+    (isCancelled)="onFormCancelled()"
+    (editFormInfo)="onFormSubmitted($event)"></airplane-form>
+<button (click)="deleteElement()"> remove </button>
+
+

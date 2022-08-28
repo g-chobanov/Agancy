@@ -46,7 +46,7 @@ namespace Agency.Models.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Journeys", (string)null);
+                    b.ToTable("Journeys");
                 });
 
             modelBuilder.Entity("Agency.Models.Classes.Ticket", b =>
@@ -63,7 +63,9 @@ namespace Agency.Models.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Tickets", (string)null);
+                    b.HasIndex("JourneyID");
+
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("Agency.Models.Models.Vehicles.Vehicle", b =>
@@ -83,7 +85,7 @@ namespace Agency.Models.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Vehicles", (string)null);
+                    b.ToTable("Vehicles");
                 });
 
             modelBuilder.Entity("Agency.Models.Vehicles.Airplane", b =>
@@ -93,14 +95,14 @@ namespace Agency.Models.Migrations
                     b.Property<bool>("HasFreeFood")
                         .HasColumnType("bit");
 
-                    b.ToTable("Airplanes", (string)null);
+                    b.ToTable("Airplanes");
                 });
 
             modelBuilder.Entity("Agency.Models.Vehicles.Bus", b =>
                 {
                     b.HasBaseType("Agency.Models.Models.Vehicles.Vehicle");
 
-                    b.ToTable("Buses", (string)null);
+                    b.ToTable("Buses");
                 });
 
             modelBuilder.Entity("Agency.Models.Vehicles.CargoShip", b =>
@@ -110,7 +112,7 @@ namespace Agency.Models.Migrations
                     b.Property<int>("Storage")
                         .HasColumnType("int");
 
-                    b.ToTable("CargoShips", (string)null);
+                    b.ToTable("CargoShips");
                 });
 
             modelBuilder.Entity("Agency.Models.Vehicles.Train", b =>
@@ -120,7 +122,7 @@ namespace Agency.Models.Migrations
                     b.Property<int>("Carts")
                         .HasColumnType("int");
 
-                    b.ToTable("Trains", (string)null);
+                    b.ToTable("Trains");
                 });
 
             modelBuilder.Entity("Agency.Models.Vehicles.Truck", b =>
@@ -130,7 +132,7 @@ namespace Agency.Models.Migrations
                     b.Property<int>("Storage")
                         .HasColumnType("int");
 
-                    b.ToTable("Trucks", (string)null);
+                    b.ToTable("Trucks");
                 });
 
             modelBuilder.Entity("Agency.Models.Classes.Journey", b =>
@@ -142,6 +144,17 @@ namespace Agency.Models.Migrations
                         .IsRequired();
 
                     b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("Agency.Models.Classes.Ticket", b =>
+                {
+                    b.HasOne("Agency.Models.Classes.Journey", "Journey")
+                        .WithMany()
+                        .HasForeignKey("JourneyID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Journey");
                 });
 
             modelBuilder.Entity("Agency.Models.Vehicles.Airplane", b =>

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Agency.Models.Migrations
 {
     [DbContext(typeof(AgencyDatabaseContext))]
-    [Migration("20220819130727_InitialDBMigration")]
-    partial class InitialDBMigration
+    [Migration("20220827203554_PlsWorkMan")]
+    partial class PlsWorkMan
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,8 @@ namespace Agency.Models.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("JourneyID");
 
                     b.ToTable("Tickets");
                 });
@@ -144,6 +146,17 @@ namespace Agency.Models.Migrations
                         .IsRequired();
 
                     b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("Agency.Models.Classes.Ticket", b =>
+                {
+                    b.HasOne("Agency.Models.Classes.Journey", "Journey")
+                        .WithMany()
+                        .HasForeignKey("JourneyID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Journey");
                 });
 
             modelBuilder.Entity("Agency.Models.Vehicles.Airplane", b =>

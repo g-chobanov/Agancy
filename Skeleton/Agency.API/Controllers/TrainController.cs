@@ -30,7 +30,7 @@ namespace Agency.API.Controllers
         [HttpPost("CreateTrain")]
         public async Task CreateTrain([FromBody] TrainDTO train)
         {
-            await _service.AddTrainAsync(train);
+            await _service.CreateTrainAsync(train);
         }
 
         [HttpDelete("DeleteTrain")]
@@ -40,9 +40,9 @@ namespace Agency.API.Controllers
         }
 
         [HttpPut("UpdateTrain")]
-        public async Task UpdateTrain([FromBody] TrainDTO train, Guid ID)
+        public async Task UpdateTrain([FromBody] TrainDTO train)
         {
-            await _service.UpdateTrainAsync(ID, train);
+            await _service.UpdateTrainAsync(train);
         }
 
     }

@@ -29,7 +29,7 @@ namespace Agency.API.Controllers
         [HttpPost("CreateTruck")]
         public async Task CreateTruck([FromBody] TruckDTO truck)
         {
-            await _service.AddTruckAsync(truck);
+            await _service.CreateTruckAsync(truck);
         }
 
         [HttpDelete("DeleteTruck")]
@@ -39,9 +39,9 @@ namespace Agency.API.Controllers
         }
 
         [HttpPut("UpdateTruck")]
-        public async Task UpdateTruck([FromBody] TruckDTO truck, Guid ID)
+        public async Task UpdateTruck([FromBody] TruckDTO truck)
         {
-            await _service.UpdateTruckAsync(ID, truck);
+            await _service.UpdateTruckAsync(truck);
         }
 
 

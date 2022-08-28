@@ -24,11 +24,27 @@ namespace Agency.Tests.BusServiceTest
             testBusDTO.PassengerCapacity =-  1;
             
             //Act
-            await sut.UpdateBusAsync(testBus.ID, testBusDTO);
+            await sut.UpdateBusAsync(testBusDTO);
 
             //Assert 
             Assert.AreEqual(testBus.PassengerCapacity, testBusDTO.PassengerCapacity);
 
+        }
+
+        [TestMethod]
+        public async Task UpdateBusShould_ThrowArgumentNullExcpetion_OnGetNonExistingBus()
+        {
+            //Arange
+            var testContext = AgencyTestUtils.GenerateContext();
+            var sut = new BusService(testContext);
+            var testID = Guid.NewGuid();
+            var testDTO = new BusDTO
+            {
+                ID = testID,
+            };
+
+            //Act && Assert
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.UpdateBusAsync(testDTO));
         }
     }
 }

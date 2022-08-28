@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Agency.Models.Classes;
+using System;
 
 namespace Agency.Models.Contracts
 {
@@ -6,11 +7,8 @@ namespace Agency.Models.Contracts
     {
         Guid ID { get; }
         decimal AdministrativeCosts { get; }
-
-        IJourney Journey { get; }
-
         Guid JourneyID { get; }
-
+        Journey Journey { get; }
         decimal CalculatePrice();
     }
 }

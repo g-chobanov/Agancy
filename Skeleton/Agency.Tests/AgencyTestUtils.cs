@@ -1,4 +1,5 @@
-﻿using Agency.Models.Data;
+﻿using Agency.Models.Classes;
+using Agency.Models.Data;
 using Agency.Models.Vehicles;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,6 +17,8 @@ namespace Agency.Tests
         public static Guid cargoShipID = Guid.NewGuid();
         public static Guid truckID = Guid.NewGuid();
         public static Guid trainID = Guid.NewGuid();
+        public static Guid journeyID = Guid.NewGuid();
+        public static Guid ticketID = Guid.NewGuid();
         public static DbContextOptions<AgencyDatabaseContext> GetOptions()
         {
             return new DbContextOptionsBuilder<AgencyDatabaseContext>()
@@ -74,12 +77,34 @@ namespace Agency.Tests
                     Storage = 19,
                 },
             };
+            var journeys = new[]
+            {
+                new Journey
+                {
+                    ID = journeyID,
+                    Destination = "test",
+                    Distance = 23,
+                    StartLocation = "rrrr",
+                    VehicleId = truckID,
+                }
+            };
+            var tickets = new[]
+            {
+                new Ticket
+                {
+                    ID = ticketID,
+                    AdministrativeCosts = 23.4m,
+                    JourneyID = journeyID,
+                }
+            };
 
             context.AddRange(airplanes);
             context.AddRange(buses);
             context.AddRange(cargoShips);
             context.AddRange(trucks);
             context.AddRange(trains);
+            context.AddRange(journeys);
+            context.AddRange(tickets);
 
             context.SaveChanges();
         }

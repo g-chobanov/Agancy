@@ -32,7 +32,7 @@ namespace Agency.API.Controllers
         [HttpPost("CreateAirplane")]
         public async Task CreateAirplane([FromBody] AirplaneDTO airplane)
         {
-            await _service.AddAirplaneAsync(airplane);
+            await _service.CreateAirplaneAsync(airplane);
         }
 
         [HttpDelete("DeleteAirplane")]
@@ -42,9 +42,9 @@ namespace Agency.API.Controllers
         }
 
         [HttpPut("UpdateAirplane")]
-        public async Task UpdateAirplane([FromBody] AirplaneDTO airplane, Guid ID)
+        public async Task UpdateAirplane([FromBody] AirplaneDTO airplane)
         {
-            await _service.UpdateAirplaneAsync(ID, airplane);
+            await _service.UpdateAirplaneAsync(airplane);
         }
     }
 }

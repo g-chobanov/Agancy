@@ -32,12 +32,12 @@ namespace Agency.Tests.BusServiceTest
             };
 
             //Act 
-            await sut.AddBusAsync(testBus);
-            var acutalBus = testContext.Buses.FirstOrDefault(t => t.PassengerCapacity == testCap && t.PricePerKilometer == testPPK);
+            await sut.CreateBusAsync(testBus);
+            var actualBus = testContext.Buses.FirstOrDefault(t => t.PassengerCapacity == testCap && t.PricePerKilometer == testPPK);
 
             //Assert
-            Assert.IsNotNull(acutalBus);
-            Assert.AreEqual(VehicleType.Land, acutalBus.Type);
+            Assert.IsNotNull(actualBus);
+            Assert.AreEqual(VehicleType.Land, actualBus.Type);
         }
 
     }

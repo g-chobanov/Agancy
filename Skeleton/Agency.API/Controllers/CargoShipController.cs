@@ -20,7 +20,6 @@ namespace Agency.API.Controllers
         {
             return await _service.GetCargoShipAsync(index);
         }
-        //change it later
         [HttpGet("GetAllCargoShips")]
         public async Task<List<CargoShipDTO>> GetAllCargoShips()
         {
@@ -30,7 +29,7 @@ namespace Agency.API.Controllers
         [HttpPost("CreateCargoShip")]
         public async Task CreateCargoShip([FromBody] CargoShipDTO cargoShip)
         {
-            await _service.AddCargoShipAsync(cargoShip);
+            await _service.CreateCargoShipAsync(cargoShip);
         }
 
         [HttpDelete("DeleteCargoShip")]
@@ -40,9 +39,9 @@ namespace Agency.API.Controllers
         }
 
         [HttpPut("UpdateCargoShip")]
-        public async Task UpdateCargoShip([FromBody] CargoShipDTO cargoShip, Guid ID)
+        public async Task UpdateCargoShip([FromBody] CargoShipDTO cargoShip)
         {
-            await _service.UpdateCargoShipAsync(ID, cargoShip);
+            await _service.UpdateCargoShipAsync(cargoShip);
         }
     }
 }

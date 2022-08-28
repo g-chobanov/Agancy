@@ -24,7 +24,7 @@ namespace Agency.Core
             _context = context;
         }
 
-        public async Task AddTrainAsync(TrainDTO trainDTO)
+        public async Task CreateTrainAsync(TrainDTO trainDTO)
         {
             Train newTrain = new Train();
             _ = newTrain.TakeFromDTO(trainDTO);
@@ -62,9 +62,9 @@ namespace Agency.Core
 
         }
 
-        public async Task UpdateTrainAsync(Guid ID, TrainDTO trainDTO)
+        public async Task UpdateTrainAsync(TrainDTO trainDTO)
         {
-            var train = await _context.Trains.FirstOrDefaultAsync(t => t.ID == ID);
+            var train = await _context.Trains.FirstOrDefaultAsync(t => t.ID == trainDTO.ID);
             if (train == null)
             {
                 throw new ArgumentNullException("Train doesn't exist");

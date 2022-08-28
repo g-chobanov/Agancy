@@ -1,0 +1,23 @@
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Passenger capacity</th>
+                <th>Price per kilometer</th>
+                <th>Has free food</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr airplane-table-row *ngFor="let airplane of airplanes; let i = index"
+                [airplane]="airplane"
+                [rowIndex]="i"
+                (deletedIndex)="onElementDeleted($event)">
+            </tr>    
+        </tbody>
+    </table>
+    <add-button 
+        [entityType]="entityType"
+        [tableElements]="airplanes"></add-button>
+    <p *ngFor="let airplane of airplanes"> {{ airplane.passengerCapacity }} </p>
+</div>
+

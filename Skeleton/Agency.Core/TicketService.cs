@@ -1,5 +1,10 @@
 ﻿using Agency.Core.Contracts;
+using Agency.Models.Classes;
 using Agency.Models.Contracts;
+using Agency.Models.Data;
+using Agency.Models.DTOMappers;
+using Agency.Models.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,25 +15,83 @@ namespace Agency.Core
 {
     public class TicketService : ITicketService
     {
-        private readonly IAgencyDatabase _db;
-        public TicketService(IAgencyDatabase database)
+        private readonly AgencyDatabaseContext _context;
+        public TicketService(AgencyDatabaseContext context)
         {
-            _db = database;
+            _context = context;
         }
 
-        public void AddTicket(ITicket Ticket)
+        public async Task<bool> CreateTicketAsync(TicketDTO ticketDTO)
         {
-            _db.Add(Ticket);
+            Journey journey = await _context.Journeys.FirstOrDefaultAsync(t => t.ID == ticketDTO.JourneyID);
+            if (journey == null)
+            {
+                return false;
+            }
+            var newTicket = new Ticket();
+            _ = newTicket.TakeFromDTO(ticketDTO);
+            await _context.Tickets.AddAsync(newTicket);
+
+            await _context.SaveChangesAsync();
+
+            return true;
         }
 
-        public ITicket GetTicket(Guid ID)
+        public async Task<TicketDTO> GetTicketAsync(Guid ID)
         {
-            return _db.Tickets.ToList().Find(t => t.ID == ID);
+            var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.ID == ID);
+            if (ticket == null)
+            {
+                throw new ArgumentNullException("Ticket was not found!");
+            }
+            return ticket.ToDTO();
         }
 
-        public List<ITicket> GetTickets()
+        public async Task<List<TicketDTO>> GetTicketsAsync()
         {
-            return _db.Tickets.ToList();
+            return await _context.Tickets.Select(t => t.ToDTO()).ToListAsync();
+        }
+
+
+        public async Task DeleteTicketAsync(Guid ID)
+        {
+            var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.ID == ID);
+            if (ticket == null)
+            {
+                throw new ArgumentNullException("Ticket was not found!");
+            }
+            _context.Tickets.Remove(ticket);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateTicketAsync(TicketDTO ticketDTO)
+        {
+            var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.ID == ticketDTO.ID);
+            if (ticket == null)
+            {
+                throw new ArgumentNullException("Ticket was not found!");
+            }
+            if (await _context.Journeys.FirstOrDefaultAsync(t => t.ID == ticketDTO.JourneyID) == null)
+            {
+                throw new ArgumentNullException("You can't create a ticket with a non-existing Journey");
+            }
+            _ = ticket.TakeFromDTO(ticketDTO);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<decimal> GetPriceAsync(Guid ID)
+        {
+            var ticket = await _context.Tickets
+                .Include(t => t.Journey)
+                .FirstOrDefaultAsync(t => t.ID == ID);
+            if (ticket == null)
+            {
+                throw new ArgumentNullException("Ticket not found!");
+            }
+            return ticket.CalculatePrice();
+
         }
     }
 }

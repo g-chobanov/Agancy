@@ -19,7 +19,6 @@ namespace Agency.Models.Classes
         private const int _minDistance = 5;
 
         [Key]
-        [JsonIgnore]
         public Guid ID { get; set; }
 
         [StringLength(_maxStringLength, MinimumLength = _minStringLength, ErrorMessage = "The Destination's length cannot be less than {2} or more than {1} symbols long.")]
@@ -33,14 +32,9 @@ namespace Agency.Models.Classes
 
         
         public Guid VehicleId { get; set; }
-        [ForeignKey("VehicleId")]
-        [JsonIgnore]
-        public Vehicle Vehicle { get; set; }
 
-        public Journey()
-        {
-            ID = Guid.NewGuid();
-        }
+        [ForeignKey("VehicleId")]
+        public Vehicle Vehicle { get; set; }
 
         public decimal CalculateTravelCosts()
         {
@@ -53,7 +47,7 @@ namespace Agency.Models.Classes
                             $"Destination: {this.Destination}" + Environment.NewLine +
                             $"Distance: {this.Distance}" + Environment.NewLine +
                             $"Vehicle type: {this.Vehicle.Type}" + Environment.NewLine +
-                            $"Travel costs: {this.CalculateTravelCosts()}";
+                            $"Travel costs: {this.CalculateTravelCosts}";
 
             return format.Replace(',', '.');
         }

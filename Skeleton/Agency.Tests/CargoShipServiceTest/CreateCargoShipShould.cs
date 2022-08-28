@@ -34,12 +34,12 @@ namespace Agency.Tests.CargoShipServiceTest
             };
 
             //Act 
-            await sut.AddCargoShipAsync(testCargoShip);
-            var acutalCargoShip = testContext.CargoShips.FirstOrDefault(t => t.PassengerCapacity == testCap && t.PricePerKilometer == testPPK && t.Storage == testStorage);
+            await sut.CreateCargoShipAsync(testCargoShip);
+            var actualCargoShip = testContext.CargoShips.FirstOrDefault(t => t.PassengerCapacity == testCap && t.PricePerKilometer == testPPK && t.Storage == testStorage);
 
             //Assert
-            Assert.IsNotNull(acutalCargoShip);
-            Assert.AreEqual(VehicleType.Sea, acutalCargoShip.Type);
+            Assert.IsNotNull(actualCargoShip);
+            Assert.AreEqual(VehicleType.Sea, actualCargoShip.Type);
         }
 
     }

@@ -1,0 +1,11 @@
+form {
+    width: 200px;
+    display: flex;
+    flex-direction: column;    
+    background-color: darkseagreen;
+    position: absolute;
+}
+
+.input {
+    width: 50%;
+}

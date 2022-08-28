@@ -24,11 +24,27 @@ namespace Agency.Tests.CargoShipServiceTest
             testCargoShipDTO.PassengerCapacity =-  1;
             
             //Act
-            await sut.UpdateCargoShipAsync(testCargoShip.ID, testCargoShipDTO);
+            await sut.UpdateCargoShipAsync(testCargoShipDTO);
 
             //Assert 
             Assert.AreEqual(testCargoShip.PassengerCapacity, testCargoShipDTO.PassengerCapacity);
 
+        }
+
+        [TestMethod]
+        public async Task UpdateCargoShipShould_ThrowArgumentNullExcpetion_OnGetNonExistingCargoShip()
+        {
+            //Arange
+            var testContext = AgencyTestUtils.GenerateContext();
+            var sut = new CargoShipService(testContext);
+            var testID = Guid.NewGuid();
+            var testDTO = new CargoShipDTO
+            {
+                ID = testID,
+            };
+
+            //Act && Assert
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.UpdateCargoShipAsync(testDTO));
         }
     }
 }

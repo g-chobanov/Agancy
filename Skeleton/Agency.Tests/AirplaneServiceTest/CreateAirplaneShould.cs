@@ -33,12 +33,12 @@ namespace Agency.Tests.AirplaneServiceTest
             };
 
             //Act 
-            await sut.AddAirplaneAsync(testAirplane);
-            var acutalAirplane = testContext.Airplanes.FirstOrDefault(t => t.PassengerCapacity == testCap && t.PricePerKilometer == testPPK && t.HasFreeFood);
+            await sut.CreateAirplaneAsync(testAirplane);
+            var actualAirplane = testContext.Airplanes.FirstOrDefault(t => t.PassengerCapacity == testCap && t.PricePerKilometer == testPPK && t.HasFreeFood);
 
             //Assert
-            Assert.IsNotNull(acutalAirplane);
-            Assert.AreEqual(VehicleType.Air, acutalAirplane.Type);
+            Assert.IsNotNull(actualAirplane);
+            Assert.AreEqual(VehicleType.Air, actualAirplane.Type);
         }
 
     }

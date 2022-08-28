@@ -24,11 +24,27 @@ namespace Agency.Tests.AirplaneServiceTest
             testAirplaneDTO.PassengerCapacity =-  1;
             
             //Act
-            await sut.UpdateAirplaneAsync(testAirplane.ID, testAirplaneDTO);
+            await sut.UpdateAirplaneAsync(testAirplaneDTO);
 
             //Assert 
             Assert.AreEqual(testAirplane.PassengerCapacity, testAirplaneDTO.PassengerCapacity);
 
+        }
+
+        [TestMethod]
+        public async Task UpdateAirplaneShould_ThrowArgumentNullExcpetion_OnGetNonExistingAirplane()
+        {
+            //Arange
+            var testContext = AgencyTestUtils.GenerateContext();
+            var sut = new AirplaneService(testContext);
+            var testID = Guid.NewGuid();
+            var testDTO = new AirplaneDTO
+            {
+                ID = testID,
+            };
+
+            //Act && Assert
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.UpdateAirplaneAsync(testDTO));
         }
     }
 }

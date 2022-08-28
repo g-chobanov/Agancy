@@ -41,7 +41,6 @@ namespace Agency.Models.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Ticket>().Ignore(t => t.Journey);
             base.OnModelCreating(modelBuilder);
             OnModelCreatingPartial(modelBuilder);
         }

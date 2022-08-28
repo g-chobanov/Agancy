@@ -9,31 +9,37 @@ using System.Threading.Tasks;
 using Agency.Models.Vehicles.Enums;
 using Agency.Models.Data;
 using Agency.Models.Models.Vehicles;
+using Agency.Models.DTOs;
+using Agency.Models.DTOMappers;
+using Microsoft.EntityFrameworkCore;
 
 namespace Agency.Core
 {
     public class VehicleService : IVehicleService
     {
-        private readonly IAgencyDatabase _db;
         private readonly AgencyDatabaseContext _context;
-        public VehicleService(IAgencyDatabase database, AgencyDatabaseContext context)
+        public VehicleService(AgencyDatabaseContext context)
         {
-            _db = database;
             _context = context; 
         }
-        public IVehicle GetVehicle(Guid ID)
+        public async Task<VehicleDTO> GetVehicleAsync(Guid ID)
         {
-            return _db.Vehicles.ToList().Find(t => t.ID == ID);
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(t => t.ID == ID);
+            if (vehicle == null)
+            {
+                throw new ArgumentNullException("vehicle does not exist");
+            }
+            return vehicle.ToDTO();
         }
 
-        public List<Vehicle> GetVehiclesByType(VehicleType type)
+        public async Task<List<VehicleDTO>> GetVehiclesByTypeAsync(VehicleType type)
         {
-            return _context.Vehicles.Where(t => t.Type == type).ToList();
+            return await _context.Vehicles.Where(t => t.Type == type).Select(t => t.ToDTO()).ToListAsync();
         }
 
-        public List<IVehicle> GetVehicles()
+        public async Task<List<VehicleDTO>> GetVehiclesAsync()
         {
-            return _db.Vehicles.ToList();
+            return await _context.Vehicles.Select(t => t.ToDTO()).ToListAsync();
         }
     }
 }

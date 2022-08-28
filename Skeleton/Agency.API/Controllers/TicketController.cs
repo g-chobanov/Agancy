@@ -1,6 +1,7 @@
 ﻿using Agency.Core.Contracts;
 using Agency.Models.Classes;
 using Agency.Models.Contracts;
+using Agency.Models.DTOs;
 using Agency.Models.Vehicles.Contracts;
 using Microsoft.AspNetCore.Mvc;
 namespace Agency.API.Controllers
@@ -10,37 +11,42 @@ namespace Agency.API.Controllers
     [Route("[controller]")]
     public class TicketController : ControllerBase
     {
-        private readonly IJourneyService _journeyService;  
-        private readonly ITicketService _ticketService;
-        public TicketController(ITicketService ticketSerivce, IJourneyService jounreyService)
+        private readonly ITicketService _service;  
+        public TicketController(ITicketService service)
         {
-            _ticketService = ticketSerivce;
-            _journeyService = jounreyService;
+            _service = service;
         }
 
         [HttpGet("GetTicket")]
-        public ITicket GetTicket(Guid id)
+        public async Task<TicketDTO> GetTicket(Guid id)
         {
-            return _ticketService.GetTicket(id);
+            return await _service.GetTicketAsync(id);
         }
 
         [HttpGet("GetAllTickets")]
-        public List<ITicket> GetAllTickets()
+        public async Task<List<TicketDTO>> GetAllTickets()
         {
-            return _ticketService.GetTickets();
+            return await _service.GetTicketsAsync();
         }
         [HttpPost("CreateTicket")]
-        public bool CreateTicket([FromBody] Ticket Ticket, Guid journeyID)
+        public async Task<bool> CreateTicket([FromBody] TicketDTO ticket)
         {
-            IJourney journey = _journeyService.GetJourney(journeyID);
-            if (journey == null)
-            {
-                return false;
-            }
-            Ticket.Journey = journey;
-            _ticketService.AddTicket(Ticket);
-            return true;
-
+            return await _service.CreateTicketAsync(ticket);
+        }
+        [HttpDelete("DeleteTicket")]
+        public async Task DeleteTicket(Guid index)
+        {
+            await _service.DeleteTicketAsync(index);
+        }
+        [HttpPut("UpdateTicket")]
+        public async Task UpdateTicket([FromBody] TicketDTO ticket)
+        {
+            await _service.UpdateTicketAsync(ticket);
+        }
+        [HttpPost("GetTravelCosts")]
+        public async Task<decimal> testing(Guid ID)
+        {
+            return await _service.GetPriceAsync(ID);
         }
     }
     

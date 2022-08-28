@@ -24,11 +24,27 @@ namespace Agency.Tests.TrainServiceTest
             testTrainDTO.PassengerCapacity =-  1;
             
             //Act
-            await sut.UpdateTrainAsync(testTrain.ID, testTrainDTO);
+            await sut.UpdateTrainAsync(testTrainDTO);
 
             //Assert 
             Assert.AreEqual(testTrain.PassengerCapacity, testTrainDTO.PassengerCapacity);
 
+        }
+
+        [TestMethod]
+        public async Task UpdateTrainShould_ThrowArgumentNullExcpetion_OnGetNonExistingTrain()
+        {
+            //Arange
+            var testContext = AgencyTestUtils.GenerateContext();
+            var sut = new TrainService(testContext);
+            var testID = Guid.NewGuid();
+            var testDTO = new TrainDTO
+            {
+                ID = testID,
+            };
+
+            //Act && Assert
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.UpdateTrainAsync(testDTO));
         }
     }
 }

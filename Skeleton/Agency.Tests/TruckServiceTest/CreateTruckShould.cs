@@ -34,7 +34,7 @@ namespace Agency.Tests.TruckServiceTest
             };
 
             //Act 
-            await sut.AddTruckAsync(testTruck);
+            await sut.CreateTruckAsync(testTruck);
             var acutalTruck = testContext.Trucks.FirstOrDefault(t => t.PassengerCapacity == testCap && t.PricePerKilometer == testPPK && t.Storage == testStorage);
 
             //Assert

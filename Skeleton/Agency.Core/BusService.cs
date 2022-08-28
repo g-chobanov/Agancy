@@ -24,7 +24,7 @@ namespace Agency.Core
             _context = context;
         }
 
-        public async Task AddBusAsync(BusDTO busDTO)
+        public async Task CreateBusAsync(BusDTO busDTO)
         {
             Bus newBus = new Bus();
             _ = newBus.TakeFromDTO(busDTO);
@@ -62,9 +62,9 @@ namespace Agency.Core
 
         }
 
-        public async Task UpdateBusAsync(Guid ID, BusDTO busDTO)
+        public async Task UpdateBusAsync(BusDTO busDTO)
         {
-            var bus = await _context.Buses.FirstOrDefaultAsync(t => t.ID == ID);
+            var bus = await _context.Buses.FirstOrDefaultAsync(t => t.ID == busDTO.ID);
             if (bus == null)
             {
                 throw new ArgumentNullException("Bus doesn't exist");

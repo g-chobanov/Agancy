@@ -1,4 +1,5 @@
 ﻿using Agency.Models.Contracts;
+using Agency.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,16 @@ namespace Agency.Core.Contracts
 {
     public interface ITicketService
     {
-        List<ITicket> GetTickets();
+        Task<List<TicketDTO>> GetTicketsAsync();
 
-        void AddTicket(ITicket ticket);
+        Task<bool> CreateTicketAsync(TicketDTO ticket);
 
-        ITicket GetTicket(Guid ID);
+        Task<TicketDTO> GetTicketAsync(Guid ID);
+
+        Task DeleteTicketAsync(Guid ID);
+
+        Task UpdateTicketAsync(TicketDTO ticketDTO);
+
+        Task<decimal> GetPriceAsync(Guid ID);
     }
 }

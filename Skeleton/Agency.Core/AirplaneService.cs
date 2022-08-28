@@ -24,13 +24,12 @@ namespace Agency.Core
             _context = context;
         }
 
-        public async Task AddAirplaneAsync(AirplaneDTO airplaneDTO)
+        public async Task CreateAirplaneAsync(AirplaneDTO airplaneDTO)
         {
             Airplane newAirplane = new Airplane();
             _ = newAirplane.TakeFromDTO(airplaneDTO);
             newAirplane.Type = VehicleType.Air;
             await _context.Airplanes.AddAsync(newAirplane);
-
             await _context.SaveChangesAsync();
         }
 
@@ -62,9 +61,9 @@ namespace Agency.Core
 
         }
 
-        public async Task UpdateAirplaneAsync(Guid ID, AirplaneDTO airplaneDTO)
+        public async Task UpdateAirplaneAsync(AirplaneDTO airplaneDTO)
         {
-            var airplane = await _context.Airplanes.FirstOrDefaultAsync(t => t.ID == ID);
+            var airplane = await _context.Airplanes.FirstOrDefaultAsync(t => t.ID ==airplaneDTO.ID);
             if (airplane == null)
             {
                 throw new ArgumentNullException("Airplane doesn't exist");

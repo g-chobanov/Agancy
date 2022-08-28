@@ -21,7 +21,6 @@ namespace Agency.Models.Vehicles
         private const int _minCarts = 1;
 
         [Key]
-        [JsonIgnore]
         public override Guid ID { get; set; }
 
         [Range(_minTrainPassengers, _maxTrainPassengers, ErrorMessage = "A train cannot have less than {1} passengers or more than {2} passengers.")]
@@ -33,10 +32,8 @@ namespace Agency.Models.Vehicles
         [Range(_minCarts, _maxCarts, ErrorMessage = "A train cannot have less than 1 cart or more than 15 carts.")]
         public int Carts { get; set; }
 
-        [JsonIgnore]
         public override VehicleType Type { get; set; }
 
-        [JsonIgnore]
         public override VehicleClassType ClassType => VehicleClassType.Train;
         public Train()
         {
