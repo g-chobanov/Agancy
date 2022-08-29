@@ -4,8 +4,9 @@
 <button (click)="onEditClick()"> edit </button>
 <airplane-form *ngIf="isEditing" 
     [isEditing]="isEditing"
+    [editedRow]="airplane.id"
     (isCancelled)="onFormCancelled()"
-    (editFormInfo)="onFormSubmitted($event)"></airplane-form>
+    (formInfo)="onFormSubmitted($event)"></airplane-form>
 <button (click)="deleteElement()"> remove </button>
 
 

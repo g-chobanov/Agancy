@@ -13,12 +13,12 @@ namespace Agency.Core.Contracts
     {
         Task<List<AirplaneDTO>> GetAirplanesAsync();
 
-        Task CreateAirplaneAsync(AirplaneDTO airplaneDTO);
+        Task<AirplaneDTO> CreateAirplaneAsync(AirplaneDTO airplaneDTO);
 
         Task<AirplaneDTO> GetAirplaneAsync(Guid ID);
 
         Task DeleteAirplaneAsync(Guid ID);
 
-        Task UpdateAirplaneAsync(AirplaneDTO airplaneDTO);
+        Task<AirplaneDTO> UpdateAirplaneAsync(AirplaneDTO airplaneDTO);
     }
 }

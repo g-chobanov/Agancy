@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IAirplane } from '../models/airplane.model';
+import { AirplaneService } from '../services/airplane.service';
 
 @Component({
   selector: '[airplane-table-row]',
@@ -13,9 +14,19 @@ export class AirplaneTableRowComponent  {
   @Output() deletedIndex = new EventEmitter<number>();
 
   isEditing: boolean = false;
+
+  constructor(private _service: AirplaneService) {
+
+  }
   
   deleteElement() {
-    this.deletedIndex.emit(this.rowIndex);
+    this._service.delete(this.airplane.id).
+      subscribe(
+        data => {
+          console.log(data);
+          this.deletedIndex.emit(this.rowIndex);
+        }
+      )
   }
 
   onEditClick() {

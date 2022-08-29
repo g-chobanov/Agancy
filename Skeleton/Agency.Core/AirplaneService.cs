@@ -24,13 +24,15 @@ namespace Agency.Core
             _context = context;
         }
 
-        public async Task CreateAirplaneAsync(AirplaneDTO airplaneDTO)
+        public async Task<AirplaneDTO> CreateAirplaneAsync(AirplaneDTO airplaneDTO)
         {
             Airplane newAirplane = new Airplane();
             _ = newAirplane.TakeFromDTO(airplaneDTO);
             newAirplane.Type = VehicleType.Air;
             await _context.Airplanes.AddAsync(newAirplane);
             await _context.SaveChangesAsync();
+
+            return airplaneDTO;
         }
 
         public async Task<AirplaneDTO> GetAirplaneAsync(Guid ID)
@@ -61,9 +63,9 @@ namespace Agency.Core
 
         }
 
-        public async Task UpdateAirplaneAsync(AirplaneDTO airplaneDTO)
+        public async Task<AirplaneDTO> UpdateAirplaneAsync(AirplaneDTO airplaneDTO)
         {
-            var airplane = await _context.Airplanes.FirstOrDefaultAsync(t => t.ID ==airplaneDTO.ID);
+            var airplane = await _context.Airplanes.FirstOrDefaultAsync(t => t.ID == airplaneDTO.ID);
             if (airplane == null)
             {
                 throw new ArgumentNullException("Airplane doesn't exist");
@@ -71,6 +73,8 @@ namespace Agency.Core
             _ = airplane.TakeFromDTO(airplaneDTO);
 
             await _context.SaveChangesAsync();
+
+            return airplaneDTO;
         }
     }
 }

@@ -9,16 +9,16 @@ import { AirplaneService } from '../services/airplane.service';
   styleUrls: ['./airplane-table.component.css']
 })
 export class AirplaneTableComponent implements OnInit {
-  airplanes: IAirplane[] = [ 
-    {passengerCapacity: 23, pricePerKilometer: 22, hasFreeFood: true}, 
-    {passengerCapacity: 23, pricePerKilometer: 22, hasFreeFood: true}];
+  airplanes!: IAirplane[];
   entityType: EntityType = EntityType.Airplane;
 
-  constructor(_service: AirplaneService) {
+  constructor(private _service: AirplaneService) {
     
   }
 
   ngOnInit(): void {
+    this._service.getAll()
+      .subscribe(data => this.airplanes = data )
   }
 
   onElementDeleted(index: number) {
