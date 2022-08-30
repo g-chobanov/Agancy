@@ -25,6 +25,4 @@ export class TransformToAirplaneService {
     };
     return newAirplane;
   } 
-
-  constructor() { }
 }

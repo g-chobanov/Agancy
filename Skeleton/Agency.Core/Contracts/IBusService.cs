@@ -8,12 +8,12 @@ namespace Agency.Core.Contracts
     {
         Task<List<BusDTO>> GetBusesAsync();
 
-        Task CreateBusAsync(BusDTO busDTO);
+        Task<BusDTO> CreateBusAsync(BusDTO busDTO);
 
         Task<BusDTO> GetBusAsync(Guid ID);
 
         Task DeleteBusAsync(Guid ID);
 
-        Task UpdateBusAsync(BusDTO busDTO);
+        Task<BusDTO> UpdateBusAsync(BusDTO busDTO);
     }
 }

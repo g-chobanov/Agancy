@@ -28,9 +28,9 @@ namespace Agency.API.Controllers
         }
 
         [HttpPost("CreateBus")]
-        public async Task CreateBus([FromBody] BusDTO bus)
+        public async Task<BusDTO> CreateBus([FromBody] BusDTO bus)
         {
-            await _service.CreateBusAsync(bus);
+            return await _service.CreateBusAsync(bus);
         }
 
         [HttpDelete("DeleteBus")]
@@ -40,9 +40,9 @@ namespace Agency.API.Controllers
         }
 
         [HttpPut("UpdateBus")]
-        public async Task UpdateBus([FromBody] BusDTO bus)
+        public async Task<BusDTO> UpdateBus([FromBody] BusDTO bus)
         {
-            await _service.UpdateBusAsync(bus);
+            return await _service.UpdateBusAsync(bus);
         }
     }
 }

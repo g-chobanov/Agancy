@@ -24,7 +24,7 @@ namespace Agency.Core
             _context = context;
         }
 
-        public async Task CreateTruckAsync(TruckDTO truckDTO)
+        public async Task<TruckDTO> CreateTruckAsync(TruckDTO truckDTO)
         {
             Truck newTruck = new Truck();
             _ = newTruck.TakeFromDTO(truckDTO);
@@ -32,6 +32,8 @@ namespace Agency.Core
             await _context.Trucks.AddAsync(newTruck);
 
             await _context.SaveChangesAsync();
+
+            return newTruck.ToDTO();
         }
 
         public async Task<TruckDTO> GetTruckAsync(Guid ID)
@@ -62,7 +64,7 @@ namespace Agency.Core
 
         }
 
-        public async Task UpdateTruckAsync(TruckDTO truckDTO)
+        public async Task<TruckDTO> UpdateTruckAsync(TruckDTO truckDTO)
         {
             var truck = await _context.Trucks.FirstOrDefaultAsync(t => t.ID == truckDTO.ID);
             if (truck == null)
@@ -72,6 +74,8 @@ namespace Agency.Core
             _ = truck.TakeFromDTO(truckDTO);
 
             await _context.SaveChangesAsync();
+
+            return truckDTO;
         }
     }
 }

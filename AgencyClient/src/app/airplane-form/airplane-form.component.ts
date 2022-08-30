@@ -9,15 +9,13 @@ import { TransformToAirplaneService } from '../services/transform-to-airplane.se
   templateUrl: './airplane-form.component.html',
   styleUrls: ['./airplane-form.component.css']
 })
-export class AirplaneFormComponent implements OnInit {
+export class AirplaneFormComponent  {
   @Input() isEditing: boolean = false;
   @Input() isCreating: boolean = false;
   @Input() editedRow!: string;
 
   @Output() formInfo = new EventEmitter();
   @Output() isCancelled = new EventEmitter();
-
-  //add outputs
 
   form: FormGroup;
   constructor(
@@ -30,9 +28,6 @@ export class AirplaneFormComponent implements OnInit {
       pricePerKilometer: [],
       hasFreeFood: []
     })
-  }
-
-  ngOnInit(): void {
   }
 
   onCreate() {

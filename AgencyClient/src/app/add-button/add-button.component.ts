@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntityType } from '../entity-type.enum';
-import { IAirplane } from '../models/airplane.model';
 
 @Component({
   selector: 'add-button',
@@ -26,7 +25,7 @@ export class AddButtonComponent {
     this.isCreating = false;
   }
 
-  onFormSubmitted(formInfo: IAirplane) {
+  onFormSubmitted(formInfo: any) {
     console.log(formInfo)
     this.tableElements.push(formInfo);
   }

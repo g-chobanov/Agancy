@@ -2,4 +2,25 @@
 <airplane-form *ngIf="entityType === allEntityTypes.Airplane && isCreating"
     [isCreating]="isCreating"
     (isCancelled)="onFormCancelled()"
-    (formInfo)="onFormSubmitted($event)"></airplane-form>
+    (formInfo)="onFormSubmitted($event)">
+</airplane-form>
+<bus-form *ngIf="entityType === allEntityTypes.Bus && isCreating"
+    [isCreating]="isCreating"
+    (isCancelled)="onFormCancelled()"
+    (formInfo)="onFormSubmitted($event)">
+</bus-form>    
+<cargo-ship-form *ngIf="entityType === allEntityTypes.CargoShip && isCreating"
+    [isCreating]="isCreating"
+    (isCancelled)="onFormCancelled()"
+    (formInfo)="onFormSubmitted($event)">
+</cargo-ship-form>    
+<truck-form *ngIf="entityType === allEntityTypes.Truck && isCreating"
+    [isCreating]="isCreating"
+    (isCancelled)="onFormCancelled()"
+    (formInfo)="onFormSubmitted($event)">
+</truck-form>   
+<train-form *ngIf="entityType === allEntityTypes.Train && isCreating"
+    [isCreating]="isCreating"
+    (isCancelled)="onFormCancelled()"
+    (formInfo)="onFormSubmitted($event)">
+</train-form>   

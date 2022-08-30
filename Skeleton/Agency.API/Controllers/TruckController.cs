@@ -27,9 +27,9 @@ namespace Agency.API.Controllers
         }
 
         [HttpPost("CreateTruck")]
-        public async Task CreateTruck([FromBody] TruckDTO truck)
+        public async Task<TruckDTO> CreateTruck([FromBody] TruckDTO truck)
         {
-            await _service.CreateTruckAsync(truck);
+            return await _service.CreateTruckAsync(truck);
         }
 
         [HttpDelete("DeleteTruck")]
@@ -39,9 +39,9 @@ namespace Agency.API.Controllers
         }
 
         [HttpPut("UpdateTruck")]
-        public async Task UpdateTruck([FromBody] TruckDTO truck)
+        public async Task<TruckDTO> UpdateTruck([FromBody] TruckDTO truck)
         {
-            await _service.UpdateTruckAsync(truck);
+            return await _service.UpdateTruckAsync(truck);
         }
 
 

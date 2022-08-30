@@ -27,9 +27,9 @@ namespace Agency.API.Controllers
         }
 
         [HttpPost("CreateCargoShip")]
-        public async Task CreateCargoShip([FromBody] CargoShipDTO cargoShip)
+        public async Task<CargoShipDTO> CreateCargoShip([FromBody] CargoShipDTO cargoShip)
         {
-            await _service.CreateCargoShipAsync(cargoShip);
+           return await _service.CreateCargoShipAsync(cargoShip);
         }
 
         [HttpDelete("DeleteCargoShip")]
@@ -39,9 +39,9 @@ namespace Agency.API.Controllers
         }
 
         [HttpPut("UpdateCargoShip")]
-        public async Task UpdateCargoShip([FromBody] CargoShipDTO cargoShip)
+        public async Task<CargoShipDTO> UpdateCargoShip([FromBody] CargoShipDTO cargoShip)
         {
-            await _service.UpdateCargoShipAsync(cargoShip);
+           return await _service.UpdateCargoShipAsync(cargoShip);
         }
     }
 }

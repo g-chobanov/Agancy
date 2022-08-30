@@ -1,0 +1,22 @@
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Passenger capacity</th>
+                <th>Price per kilometer</th>
+                <th>Storage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr truck-table-row *ngFor="let truck of trucks; let i = index"
+                [truck]="truck"
+                [rowIndex]="i"
+                (deletedIndex)="onElementDeleted($event)">
+            </tr>    
+        </tbody>
+    </table>
+    <add-button 
+        [entityType]="entityType"
+        [tableElements]="trucks">
+    </add-button>
+</div>

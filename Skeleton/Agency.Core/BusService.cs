@@ -24,7 +24,7 @@ namespace Agency.Core
             _context = context;
         }
 
-        public async Task CreateBusAsync(BusDTO busDTO)
+        public async Task<BusDTO> CreateBusAsync(BusDTO busDTO)
         {
             Bus newBus = new Bus();
             _ = newBus.TakeFromDTO(busDTO);
@@ -32,6 +32,8 @@ namespace Agency.Core
             await _context.Buses.AddAsync(newBus);
 
             await _context.SaveChangesAsync();
+
+            return newBus.ToDTO();
         }
 
         public async Task<BusDTO> GetBusAsync(Guid ID)
@@ -62,7 +64,7 @@ namespace Agency.Core
 
         }
 
-        public async Task UpdateBusAsync(BusDTO busDTO)
+        public async Task<BusDTO> UpdateBusAsync(BusDTO busDTO)
         {
             var bus = await _context.Buses.FirstOrDefaultAsync(t => t.ID == busDTO.ID);
             if (bus == null)
@@ -72,6 +74,8 @@ namespace Agency.Core
             _ = bus.TakeFromDTO(busDTO);
 
             await _context.SaveChangesAsync();
+
+            return busDTO;
         }
     }
 }

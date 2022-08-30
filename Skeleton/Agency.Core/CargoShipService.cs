@@ -24,7 +24,7 @@ namespace Agency.Core
             _context = context;
         }
 
-        public async Task CreateCargoShipAsync(CargoShipDTO cargoShipDTO)
+        public async Task<CargoShipDTO> CreateCargoShipAsync(CargoShipDTO cargoShipDTO)
         {
             CargoShip newCargoShip = new CargoShip();
             _ = newCargoShip.TakeFromDTO(cargoShipDTO);
@@ -32,6 +32,8 @@ namespace Agency.Core
             await _context.CargoShips.AddAsync(newCargoShip);
 
             await _context.SaveChangesAsync();
+
+            return newCargoShip.ToDTO();
         }
 
         public async Task<CargoShipDTO> GetCargoShipAsync(Guid ID)
@@ -62,7 +64,7 @@ namespace Agency.Core
 
         }
 
-        public async Task UpdateCargoShipAsync(CargoShipDTO cargoShipDTO)
+        public async Task<CargoShipDTO> UpdateCargoShipAsync(CargoShipDTO cargoShipDTO)
         {
             var cargoShip = await _context.CargoShips.FirstOrDefaultAsync(t => t.ID == cargoShipDTO.ID);
             if (cargoShip == null)
@@ -72,6 +74,8 @@ namespace Agency.Core
             _ = cargoShip.TakeFromDTO(cargoShipDTO);
 
             await _context.SaveChangesAsync();
+
+            return cargoShipDTO;
         }
     }
 

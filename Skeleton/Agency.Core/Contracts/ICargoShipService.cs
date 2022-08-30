@@ -13,12 +13,12 @@ namespace Agency.Core.Contracts
     {
         Task<List<CargoShipDTO>> GetCargoShipsAsync();
 
-        Task CreateCargoShipAsync(CargoShipDTO cargoShupDTO);
+        Task<CargoShipDTO> CreateCargoShipAsync(CargoShipDTO cargoShupDTO);
 
         Task<CargoShipDTO> GetCargoShipAsync(Guid ID);
 
         Task DeleteCargoShipAsync(Guid ID);
 
-        Task UpdateCargoShipAsync(CargoShipDTO cargoShipDTO);
+        Task<CargoShipDTO> UpdateCargoShipAsync(CargoShipDTO cargoShipDTO);
     }
 }

@@ -1,0 +1,23 @@
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Passenger capacity</th>
+                <th>Price per kilometer</th>
+                <th>Storage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr cargo-ship-table-row *ngFor="let cargoShip of cargoShips; let i = index"
+                [cargoShip]="cargoShip"
+                [rowIndex]="i"
+                (deletedIndex)="onElementDeleted($event)">
+            </tr>    
+        </tbody>
+    </table>
+    <add-button 
+        [entityType]="entityType"
+        [tableElements]="cargoShips">
+    </add-button>
+</div>
+

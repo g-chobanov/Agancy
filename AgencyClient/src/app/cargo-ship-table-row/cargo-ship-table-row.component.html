@@ -1,0 +1,11 @@
+<td> {{ cargoShip.passengerCapacity }} </td>
+<td> {{ cargoShip.pricePerKilometer }} </td>
+<td> {{ cargoShip.storage }} </td>
+<button (click)="onEditClick()"> edit </button>
+<cargo-ship-form *ngIf="isEditing" 
+    [isEditing]="isEditing"
+    [editedRow]="cargoShip.id"
+    (isCancelled)="onFormCancelled()"
+    (formInfo)="onFormSubmitted($event)">
+</cargo-ship-form>
+<button (click)="deleteElement()"> remove </button>

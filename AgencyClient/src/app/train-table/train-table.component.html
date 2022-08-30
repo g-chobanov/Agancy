@@ -1,0 +1,22 @@
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Passenger capacity</th>
+                <th>Price per kilometer</th>
+                <th>Carts</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr train-table-row *ngFor="let train of trains; let i = index"
+                [train]="train"
+                [rowIndex]="i"
+                (deletedIndex)="onElementDeleted($event)">
+            </tr>    
+        </tbody>
+    </table>
+    <add-button 
+        [entityType]="entityType"
+        [tableElements]="trains">
+    </add-button>
+</div>

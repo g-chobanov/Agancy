@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+form {
+    width: 200px;
+    display: flex;
+    flex-direction: column;    
+    background-color: darkseagreen;
+    position: absolute;
+}
+
+.input {
+    width: 50%;
+}

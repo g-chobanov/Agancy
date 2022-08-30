@@ -32,7 +32,7 @@ namespace Agency.Core
             await _context.Airplanes.AddAsync(newAirplane);
             await _context.SaveChangesAsync();
 
-            return airplaneDTO;
+            return newAirplane.ToDTO();
         }
 
         public async Task<AirplaneDTO> GetAirplaneAsync(Guid ID)

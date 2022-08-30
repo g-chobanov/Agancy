@@ -24,7 +24,7 @@ namespace Agency.Core
             _context = context;
         }
 
-        public async Task CreateTrainAsync(TrainDTO trainDTO)
+        public async Task<TrainDTO> CreateTrainAsync(TrainDTO trainDTO)
         {
             Train newTrain = new Train();
             _ = newTrain.TakeFromDTO(trainDTO);
@@ -32,6 +32,8 @@ namespace Agency.Core
             await _context.Trains.AddAsync(newTrain);
 
             await _context.SaveChangesAsync();
+
+            return newTrain.ToDTO();
         }
 
         public async Task<TrainDTO> GetTrainAsync(Guid ID)
@@ -62,7 +64,7 @@ namespace Agency.Core
 
         }
 
-        public async Task UpdateTrainAsync(TrainDTO trainDTO)
+        public async Task<TrainDTO> UpdateTrainAsync(TrainDTO trainDTO)
         {
             var train = await _context.Trains.FirstOrDefaultAsync(t => t.ID == trainDTO.ID);
             if (train == null)
@@ -72,6 +74,8 @@ namespace Agency.Core
             _ = train.TakeFromDTO(trainDTO);
 
             await _context.SaveChangesAsync();
+
+            return trainDTO;
         }
     }
 }

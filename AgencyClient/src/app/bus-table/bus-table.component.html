@@ -1,0 +1,22 @@
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Passenger capacity</th>
+                <th>Price per kilometer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr bus-table-row *ngFor="let bus of buses; let i = index"
+                [bus]="bus"
+                [rowIndex]="i"
+                (deletedIndex)="onElementDeleted($event)">
+            </tr>    
+        </tbody>
+    </table>
+    <add-button 
+        [entityType]="entityType"
+        [tableElements]="buses">
+    </add-button>
+</div>
+
