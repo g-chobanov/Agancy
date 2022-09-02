@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GlobalConstants } from '../globalconstants';
+import { GlobalConstants } from '../common/globalconstants';
 import { IVehicle } from '../models/vehicle.model';
 
 @Injectable({

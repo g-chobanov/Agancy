@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { GlobalConstants } from '../globalconstants';
+import { GlobalConstants } from '../common/globalconstants';
 
 export class ModelService<T> {
 

@@ -16,33 +16,70 @@ namespace Agency.API.Controllers
         }
 
         [HttpGet("GetTrain")]
-        public async Task<TrainDTO> GetTrain(Guid index)
+        public async Task<ActionResult<TrainDTO>> GetTrain(Guid index)
         {
-            return await _service.GetTrainAsync(index);
+            try
+            {
+                return Ok(await _service.GetTrainAsync(index));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         //change it later
         [HttpGet("GetAllTrains")]
-        public async Task<List<TrainDTO>> GetAllTrains()
+        public async Task<ActionResult<List<TrainDTO>>> GetAllTrains()
         {
-            return await _service.GetTrainsAsync();
+            try
+            {
+                return Ok(await _service.GetTrainsAsync());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost("CreateTrain")]
-        public async Task<TrainDTO> CreateTrain([FromBody] TrainDTO train)
+        public async Task<ActionResult<TrainDTO>> CreateTrain([FromBody] TrainDTO train)
         {
-            return await _service.CreateTrainAsync(train);
+            try
+            {
+                return Ok(await _service.CreateTrainAsync(train));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("DeleteTrain")]
-        public async Task DeleteTrain(Guid index)
+        public async Task<ActionResult> DeleteTrain(Guid index)
         {
-            await _service.DeleteTrainAsync(index);
+            try
+            {
+                await _service.DeleteTrainAsync(index);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpPut("UpdateTrain")]
-        public async Task<TrainDTO> UpdateTrain([FromBody] TrainDTO train)
+        public async Task<ActionResult<TrainDTO>> UpdateTrain([FromBody] TrainDTO train)
         {
-            return await _service.UpdateTrainAsync(train);
+            try
+            {
+                return Ok(await _service.UpdateTrainAsync(train));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }

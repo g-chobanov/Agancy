@@ -18,33 +18,69 @@ namespace Agency.API.Controllers
         }
 
         [HttpGet("GetAirplane")]
-        public async Task<AirplaneDTO> GetAirplane(Guid index)
+        public async Task<ActionResult<AirplaneDTO>> GetAirplane(Guid index)
         {
-            return await _service.GetAirplaneAsync(index);
+            try
+            {
+                return Ok(await _service.GetAirplaneAsync(index));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        //change it later
         [HttpGet("GetAllAirplanes")]
-        public async Task<List<AirplaneDTO>> GetAllAirplanes()
+        public async Task<ActionResult<List<AirplaneDTO>>> GetAllAirplanes()
         {
-            return await _service.GetAirplanesAsync();
+            try
+            {
+                return Ok(await _service.GetAirplanesAsync());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost("CreateAirplane")]
-        public async Task<AirplaneDTO> CreateAirplane([FromBody] AirplaneDTO airplane)
+        public async Task<ActionResult<AirplaneDTO>> CreateAirplane([FromBody] AirplaneDTO airplane)
         {
-            return await _service.CreateAirplaneAsync(airplane);
+            try
+            {
+                return Ok(await _service.CreateAirplaneAsync(airplane));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("DeleteAirplane")]
-        public async Task DeleteAirplane(Guid index)
+        public async Task<ActionResult> DeleteAirplane(Guid index)
         {
-            await _service.DeleteAirplaneAsync(index);
+            try
+            {
+                await _service.DeleteAirplaneAsync(index);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpPut("UpdateAirplane")]
-        public async Task<AirplaneDTO> UpdateAirplane([FromBody] AirplaneDTO airplane)
+        public async Task<ActionResult<AirplaneDTO>> UpdateAirplane([FromBody] AirplaneDTO airplane)
         {
-            return await _service.UpdateAirplaneAsync(airplane);
+            try
+            {
+                return Ok(await _service.UpdateAirplaneAsync(airplane));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

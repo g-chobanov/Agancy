@@ -16,32 +16,69 @@ namespace Agency.API.Controllers
         }
 
         [HttpGet("GetTruck")]
-        public async Task<TruckDTO> GetTruck(Guid index)
+        public async Task<ActionResult<TruckDTO>> GetTruck(Guid index)
         {
-            return await _service.GetTruckAsync(index);
+            try
+            {
+                return Ok(await _service.GetTruckAsync(index));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("GetAllTrucks")]
-        public async Task<List<TruckDTO>> GetAllTrucks()
+        public async Task<ActionResult<List<TruckDTO>>> GetAllTrucks()
         {
-            return await _service.GetTrucksAsync();
+            try
+            {
+                return Ok(await _service.GetTrucksAsync());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         [HttpPost("CreateTruck")]
-        public async Task<TruckDTO> CreateTruck([FromBody] TruckDTO truck)
+        public async Task<ActionResult<TruckDTO>> CreateTruck([FromBody] TruckDTO truck)
         {
-            return await _service.CreateTruckAsync(truck);
+            try
+            {
+                return Ok(await _service.CreateTruckAsync(truck));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("DeleteTruck")]
-        public async Task DeleteTruck(Guid index)
+        public async Task<ActionResult> DeleteTruck(Guid index)
         {
-            await _service.DeleteTruckAsync(index);
+            try
+            {
+                await _service.DeleteTruckAsync(index);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("UpdateTruck")]
-        public async Task<TruckDTO> UpdateTruck([FromBody] TruckDTO truck)
+        public async Task<ActionResult<TruckDTO>> UpdateTruck([FromBody] TruckDTO truck)
         {
-            return await _service.UpdateTruckAsync(truck);
+            try
+            {
+                return Ok(await _service.UpdateTruckAsync(truck));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 

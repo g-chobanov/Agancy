@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EntityType } from '../../entity-type.enum';
+import { EntityType } from '../../common/entity-type.enum';
 import { IBus } from '../../models/bus.model';
 import { BusService } from '../../services/bus.service';
 

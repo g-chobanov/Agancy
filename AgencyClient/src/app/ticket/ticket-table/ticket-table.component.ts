@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EntityType } from '../../entity-type.enum';
+import { EntityType } from '../../common/entity-type.enum';
 import { ITicket } from '../../models/ticket.model';
 import { TicketService } from '../../services/ticket.service';
 

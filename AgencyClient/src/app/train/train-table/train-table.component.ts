@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EntityType } from '../../entity-type.enum';
+import { EntityType } from '../../common/entity-type.enum';
 import { ITrain } from '../../models/train.model';
 import { TrainService } from '../../services/train.service';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EntityType } from '../../entity-type.enum';
+import { EntityType } from '../../common/entity-type.enum';
 import { ICargoShip } from '../../models/cargo-ship.model';
 import { CargoShipService } from '../../services/cargo-ship.service';
 

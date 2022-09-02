@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EntityType } from '../../entity-type.enum';
+import { EntityType } from '../../common/entity-type.enum';
 import { IJourney } from '../../models/journey.model';
 import { JourneyService } from '../../services/journey.service';
 

@@ -18,35 +18,78 @@ namespace Agency.API.Controllers
         }
 
         [HttpGet("GetTicket")]
-        public async Task<TicketDTO> GetTicket(Guid id)
+        public async Task<ActionResult<TicketDTO>> GetTicket(Guid id)
         {
-            return await _service.GetTicketAsync(id);
+            try
+            {
+                return Ok(await _service.GetTicketAsync(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("GetAllTickets")]
-        public async Task<List<TicketDTO>> GetAllTickets()
+        public async Task<ActionResult<List<TicketDTO>>> GetAllTickets()
         {
-            return await _service.GetTicketsAsync();
+            try
+            {
+                return Ok(await _service.GetTicketsAsync());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateTicket")]
-        public async Task<TicketDTO> CreateTicket([FromBody] TicketDTO ticket)
+        public async Task<ActionResult<TicketDTO>> CreateTicket([FromBody] TicketDTO ticket)
         {
-            return await _service.CreateTicketAsync(ticket);
+            try
+            {
+                return Ok(await _service.CreateTicketAsync(ticket));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteTicket")]
-        public async Task DeleteTicket(Guid index)
+        public async Task<ActionResult> DeleteTicket(Guid index)
         {
-            await _service.DeleteTicketAsync(index);
+            try
+            {
+                await _service.DeleteTicketAsync(index);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateTicket")]
-        public async Task<TicketDTO> UpdateTicket([FromBody] TicketDTO ticket)
+        public async Task<ActionResult<TicketDTO>> UpdateTicket([FromBody] TicketDTO ticket)
         {
-            return await _service.UpdateTicketAsync(ticket);
+            try
+            {
+                return Ok(await _service.UpdateTicketAsync(ticket));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("GetPrice")]
-        public async Task<decimal> GetPrice(Guid id)
+        public async Task<ActionResult<decimal>> GetPrice(Guid id)
         {
-            return await _service.GetPriceAsync(id);
+            try
+            {
+                return Ok(await _service.GetPriceAsync(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
     

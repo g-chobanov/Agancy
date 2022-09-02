@@ -18,22 +18,45 @@ namespace Agency.API.Controllers
         }
 
         [HttpGet("GetVehicle")]
-        public async Task<VehicleDTO> GetVehicle(Guid id)
+        public async Task<ActionResult<VehicleDTO>> GetVehicle(Guid id)
         {
-            return await _service.GetVehicleAsync(id);
+            try
+            {
+                return Ok(await _service.GetVehicleAsync(id));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("GetAllVehicles")]
-        public async Task<List<VehicleDTO>> GetAllVehicles()
+        public async Task<ActionResult<List<VehicleDTO>>> GetAllVehicles()
         {
-            return await _service.GetVehiclesAsync();
+            try
+            {
+                return Ok(await _service.GetVehiclesAsync());
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("DeleteVehicle")]
-        public async Task DeleteVehicle(Guid id)
+        public async Task<ActionResult> DeleteVehicle(Guid id)
         {
-             await _service.DeleteVehicleAsync(id);
+            try
+            {
+                await _service.DeleteVehicleAsync(id);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
+
 
     }
 }

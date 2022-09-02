@@ -16,33 +16,70 @@ namespace Agency.API.Controllers
         }
 
         [HttpGet("GetBus")]
-        public async Task<BusDTO> GetBus(Guid index)
+        public async Task<ActionResult<BusDTO>> GetBus(Guid index)
         {
-            return await _service.GetBusAsync(index);
+            try
+            {
+                return Ok(await _service.GetBusAsync(index));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("GetAllBuses")]
-        public async Task<List<BusDTO>> GetAllBuses()
+        public async Task<ActionResult<List<BusDTO>>> GetAllBuses()
         {
-            return await _service.GetBusesAsync();
+            try
+            {
+                return Ok(await _service.GetBusesAsync());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost("CreateBus")]
-        public async Task<BusDTO> CreateBus([FromBody] BusDTO bus)
+        public async Task<ActionResult<BusDTO>> CreateBus([FromBody] BusDTO bus)
         {
-            return await _service.CreateBusAsync(bus);
+            try
+            {
+                return Ok(await _service.CreateBusAsync(bus));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("DeleteBus")]
-        public async Task DeleteBus(Guid index)
+        public async Task<ActionResult> DeleteBus(Guid index)
         {
-            await _service.DeleteBusAsync(index);
+            
+            try
+            {
+                await _service.DeleteBusAsync(index);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("UpdateBus")]
-        public async Task<BusDTO> UpdateBus([FromBody] BusDTO bus)
+        public async Task<ActionResult<BusDTO>> UpdateBus([FromBody] BusDTO bus)
         {
-            return await _service.UpdateBusAsync(bus);
+            try
+            {
+                return Ok(await _service.UpdateBusAsync(bus));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

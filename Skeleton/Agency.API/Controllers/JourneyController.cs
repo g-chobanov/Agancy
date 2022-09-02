@@ -18,40 +18,90 @@ namespace Agency.API.Controllers
         }
 
         [HttpGet("GetJourney")]
-        public async Task<JourneyDTO> GetJourney(Guid id)
+        public async Task<ActionResult<JourneyDTO>> GetJourney(Guid id)
         {
-            return await _service.GetJourneyAsync(id);
+            try
+            {
+                return Ok(await _service.GetJourneyAsync(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("GetAllJourneys")]
-        public async Task<List<JourneyDTO>> GetAllJourneys()
+        public async Task<ActionResult<List<JourneyDTO>>> GetAllJourneys()
         {
-            return await _service.GetJourneysAsync();
+            try
+            {
+                return Ok(await _service.GetJourneysAsync());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("GetJourneyStringInfo")]
-        public async Task<string> GetJourneyStringInfo(Guid id)
+        public async Task<ActionResult<string>> GetJourneyStringInfo(Guid id)
         {
-            return await _service.GetJourneyStringInfoAsync(id);
+            try
+            {
+                return Ok(await _service.GetJourneyStringInfoAsync(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("CreateJourney")]
-        public async Task<JourneyDTO> CreateJourney([FromBody] JourneyDTO journey)
+        public async Task<ActionResult<JourneyDTO>> CreateJourney([FromBody] JourneyDTO journey)
         {
-            return await _service.CreateJourneyAsync(journey);
+            try
+            {
+                return Ok(await _service.CreateJourneyAsync(journey));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpDelete("DeleteJourney")]
-        public async Task DeleteJourney(Guid index)
+        public async Task<ActionResult> DeleteJourney(Guid index)
         {
-            await _service.DeleteJourneyAsync(index);
+            try
+            {
+                await _service.DeleteJourneyAsync(index);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("UpdateJourney")]
-        public async Task<JourneyDTO> UpdateJourney([FromBody] JourneyDTO journey)
+        public async Task<ActionResult<JourneyDTO>> UpdateJourney([FromBody] JourneyDTO journey)
         {
-            return await _service.UpdateJourneyAsync(journey);
+            try
+            {
+                return Ok(await _service.UpdateJourneyAsync(journey));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("GetTravelCosts")]
-        public async Task<decimal> GetTravelCosts(Guid id)
+        public async Task<ActionResult<decimal>> GetTravelCosts(Guid id)
         {
-             return await _service.GetTravelCostsAsync(id);
+            try
+            {
+                return Ok(await _service.GetTravelCostsAsync(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
     

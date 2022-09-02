@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { EntityType } from '../../entity-type.enum';
+import { EntityType } from '../../common/entity-type.enum';
 import { ITruck } from '../../models/truck.model';
 import { TruckService } from '../../services/truck.service';
 

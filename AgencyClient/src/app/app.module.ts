@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AirplaneTableComponent } from './airplane/airplane-table/airplane-table.component';
 import { AirplaneService } from './services/airplane.service';
 import { AirplaneTableRowComponent } from './airplane/airplane-table-row/airplane-table-row.component';
-import { AddButtonComponent } from './add-button/add-button.component';
+import { AddButtonComponent } from './common/add-button/add-button.component';
 import { HttpClientModule } from '@angular/common/http'
 import { TransformToAirplaneService } from './services/transform-to-airplane.service';
 import { BusService } from './services/bus.service';
