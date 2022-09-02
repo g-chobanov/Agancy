@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ITrain } from '../models/train.model';
+import { TransformToModelService } from './transform-to-model.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TransformToTrainService {
-
-  formToTrain(form: any) : ITrain {
+export class TransformToTrainService implements TransformToModelService<ITrain> {
+  transformFromForm(form: any): ITrain {
     let newTrain: ITrain = { 
       id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       passengerCapacity: form.get('passengerCapacity')?.value,
@@ -15,8 +15,7 @@ export class TransformToTrainService {
     };
     return newTrain;
   }
-
-  jsonToTrain(json: any): ITrain {
+  transformFromJson(json: any): ITrain {
     let newTrain: ITrain = {
       id: json['id'],
       passengerCapacity: json['passengerCapacity'],
@@ -24,5 +23,5 @@ export class TransformToTrainService {
       carts: json['carts']
     };
     return newTrain;
-  } 
+  }
 }

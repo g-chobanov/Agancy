@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ITruck } from '../models/truck.model';
+import { TransformToModelService } from './transform-to-model.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TransformToTruckService {
-
-  formToTruck(form: any) : ITruck {
+export class TransformToTruckService implements TransformToModelService<ITruck> {
+  transformFromForm(form: any): ITruck {
     let newTruck: ITruck = { 
       id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       passengerCapacity: form.get('passengerCapacity')?.value,
@@ -15,8 +15,7 @@ export class TransformToTruckService {
     };
     return newTruck;
   }
-
-  jsonToTruck(json: any): ITruck {
+  transformFromJson(json: any): ITruck {
     let newTruck: ITruck = {
       id: json['id'],
       passengerCapacity: json['passengerCapacity'],
@@ -24,5 +23,5 @@ export class TransformToTruckService {
       storage: json['storage']
     };
     return newTruck;
-  } 
+  }
 }

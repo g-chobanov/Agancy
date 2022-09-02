@@ -1,0 +1,17 @@
+<td> {{ ticket.id }} </td>
+<td> {{ ticket.administrativeCosts }} </td>
+<td> 
+     {{ ticket.journeyID }} 
+     <p> {{ journeyInfo }}</p>
+</td>
+<td> {{ price }} </td>
+<td class="edit-cell">
+    <button (click)="onEditClick()"> edit </button>
+    <ticket-form *ngIf="isEditing" 
+        [isEditing]="isEditing"
+        [editedRow]="ticket.id"
+        (isCancelled)="onFormCancelled()"
+        (formInfo)="onFormSubmitted($event)">
+    </ticket-form>
+    <button id="remove"(click)="deleteElement()"> remove </button>
+</td>

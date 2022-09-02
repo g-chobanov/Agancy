@@ -29,7 +29,7 @@ namespace Agency.API.Controllers
             return await _service.GetTicketsAsync();
         }
         [HttpPost("CreateTicket")]
-        public async Task<bool> CreateTicket([FromBody] TicketDTO ticket)
+        public async Task<TicketDTO> CreateTicket([FromBody] TicketDTO ticket)
         {
             return await _service.CreateTicketAsync(ticket);
         }
@@ -39,14 +39,14 @@ namespace Agency.API.Controllers
             await _service.DeleteTicketAsync(index);
         }
         [HttpPut("UpdateTicket")]
-        public async Task UpdateTicket([FromBody] TicketDTO ticket)
+        public async Task<TicketDTO> UpdateTicket([FromBody] TicketDTO ticket)
         {
-            await _service.UpdateTicketAsync(ticket);
+            return await _service.UpdateTicketAsync(ticket);
         }
-        [HttpPost("GetTravelCosts")]
-        public async Task<decimal> testing(Guid ID)
+        [HttpGet("GetPrice")]
+        public async Task<decimal> GetPrice(Guid id)
         {
-            return await _service.GetPriceAsync(ID);
+            return await _service.GetPriceAsync(id);
         }
     }
     

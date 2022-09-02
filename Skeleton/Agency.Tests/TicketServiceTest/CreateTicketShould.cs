@@ -40,7 +40,7 @@ namespace Agency.Tests.TicketServiceTest
         }
 
         [TestMethod]
-        public async Task CreateTicketShould_ReturnFalse_OnGetNonExistingJourney()
+        public async Task CreateTicketShould_ThrowNullException_OnGetNonExistingJourney()
         {
             //Arange
             var testContext = AgencyTestUtils.GenerateContext();
@@ -51,11 +51,9 @@ namespace Agency.Tests.TicketServiceTest
                 JourneyID = testID,
             };
 
-            //Act 
-            var result = await sut.CreateTicketAsync(testTicket);
+            //Act & Assert
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.CreateTicketAsync(testTicket));
 
-            //Assert
-            Assert.IsFalse(result);
         }
 
     }

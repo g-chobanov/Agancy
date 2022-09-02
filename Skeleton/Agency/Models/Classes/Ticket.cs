@@ -12,6 +12,7 @@ namespace Agency.Models.Classes
 {
     public class Ticket : ITicket
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid ID { get; set; }
         public decimal AdministrativeCosts { get; set; }

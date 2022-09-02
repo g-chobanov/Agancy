@@ -1,10 +1,11 @@
-<div>
+<div class="table-panel">
     <table>
         <thead>
             <tr>
                 <th>Passenger capacity</th>
                 <th>Price per kilometer</th>
                 <th>Has free food</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -14,10 +15,10 @@
                 (deletedIndex)="onElementDeleted($event)">
             </tr>    
         </tbody>
+        <add-button 
+            [entityType]="entityType"
+            [tableElements]="airplanes">
+        </add-button>
     </table>
-    <add-button 
-        [entityType]="entityType"
-        [tableElements]="airplanes">
-    </add-button>
 </div>
 

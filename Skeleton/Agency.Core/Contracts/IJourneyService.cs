@@ -14,13 +14,15 @@ namespace Agency.Core.Contracts
     {
         Task<List<JourneyDTO>> GetJourneysAsync();
 
-        Task<bool> CreateJourneyAsync(JourneyDTO journey);
+        Task<JourneyDTO> CreateJourneyAsync(JourneyDTO journey);
 
         Task<JourneyDTO> GetJourneyAsync(Guid ID);
 
+        Task<string> GetJourneyStringInfoAsync(Guid ID);
+
         Task DeleteJourneyAsync(Guid ID);
 
-        Task UpdateJourneyAsync(JourneyDTO journeyDTO);
+        Task<JourneyDTO> UpdateJourneyAsync(JourneyDTO journeyDTO);
 
         Task<decimal> GetTravelCostsAsync(Guid ID);
     }

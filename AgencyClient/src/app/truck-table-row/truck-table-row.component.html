@@ -1,13 +1,15 @@
 <td> {{ truck.passengerCapacity }} </td>
 <td> {{ truck.pricePerKilometer }} </td>
 <td> {{ truck.storage }} </td>
-<button (click)="onEditClick()"> edit </button>
-<truck-form *ngIf="isEditing" 
-    [isEditing]="isEditing"
-    [editedRow]="truck.id"
-    (isCancelled)="onFormCancelled()"
-    (formInfo)="onFormSubmitted($event)">
-</truck-form>
-<button (click)="deleteElement()"> remove </button>
+<td class="edit-cell">
+    <button (click)="onEditClick()"> edit </button>
+    <truck-form *ngIf="isEditing" 
+        [isEditing]="isEditing"
+        [editedRow]="truck.id"
+        (isCancelled)="onFormCancelled()"
+        (formInfo)="onFormSubmitted($event)">
+    </truck-form>
+    <button (click)="deleteElement()"> remove </button>
+</td>
 
 

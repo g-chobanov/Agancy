@@ -12,13 +12,13 @@ namespace Agency.Core.Contracts
     {
         Task<List<TicketDTO>> GetTicketsAsync();
 
-        Task<bool> CreateTicketAsync(TicketDTO ticket);
+        Task<TicketDTO> CreateTicketAsync(TicketDTO ticket);
 
         Task<TicketDTO> GetTicketAsync(Guid ID);
 
         Task DeleteTicketAsync(Guid ID);
 
-        Task UpdateTicketAsync(TicketDTO ticketDTO);
+        Task<TicketDTO> UpdateTicketAsync(TicketDTO ticketDTO);
 
         Task<decimal> GetPriceAsync(Guid ID);
     }

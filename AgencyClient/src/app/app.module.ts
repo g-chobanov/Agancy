@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -31,6 +31,17 @@ import { TrainFormComponent } from './train-form/train-form.component';
 import { TrainTableComponent } from './train-table/train-table.component';
 import { TrainTableRowComponent } from './train-table-row/train-table-row.component';
 import { RouterModule } from '@angular/router';
+import { NavBarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
+import { VehicleTableComponent } from './vehicle-table/vehicle-table.component';
+import { VehicleTableRowComponent } from './vehicle-table-row/vehicle-table-row.component';
+import { JourneyTableComponent } from './journey-table/journey-table.component';
+import { JourneyTableRowComponent } from './journey-table-row/journey-table-row.component';
+import { JourneyFormComponent } from './journey-form/journey-form.component';
+import { TicketTableComponent } from './ticket-table/ticket-table.component';
+import { TicketTableRowComponent } from './ticket-table-row/ticket-table-row.component';
+import { ModelTypePipe } from './modeltype.pipe';
+import { TicketFormComponent } from './ticket-form/ticket-form.component';
 
 @NgModule({
   declarations: [
@@ -51,11 +62,60 @@ import { RouterModule } from '@angular/router';
     TrainFormComponent,
     TrainTableComponent,
     TrainTableRowComponent,
+    NavBarComponent,
+    HomeComponent,
+    VehicleTableComponent,
+    VehicleTableRowComponent,
+    JourneyTableComponent,
+    JourneyTableRowComponent,
+    JourneyFormComponent,
+    ModelTypePipe,
+    TicketTableComponent,
+    TicketTableRowComponent,
+    TicketFormComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterModule.forRoot([
+      {
+        path: ' ',
+        component: HomeComponent
+      },
+      {
+        path: "airplanes",
+        component: AirplaneTableComponent
+      },
+      {
+        path: "buses",
+        component: BusTableComponent
+      },
+      {
+        path: "cargoShips",
+        component: CargoShipTableComponent
+      },
+      {
+        path: "trucks",
+        component: TruckTableComponent
+      },
+      {
+        path: "trains",
+        component: TrainTableComponent
+      },
+      {
+        path: "vehicles",
+        component: VehicleTableComponent
+      },
+      {
+        path: "journeys",
+        component: JourneyTableComponent
+      },
+      {
+        path: "tickets",
+        component: TicketTableComponent
+      }
+    ])
   ],
   providers: [
     AirplaneService,

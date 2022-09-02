@@ -18,6 +18,7 @@ namespace Agency.Models.Classes
         private const int _maxDistance = 5000;
         private const int _minDistance = 5;
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid ID { get; set; }
 
@@ -47,7 +48,7 @@ namespace Agency.Models.Classes
                             $"Destination: {this.Destination}" + Environment.NewLine +
                             $"Distance: {this.Distance}" + Environment.NewLine +
                             $"Vehicle type: {this.Vehicle.Type}" + Environment.NewLine +
-                            $"Travel costs: {this.CalculateTravelCosts}";
+                            $"Travel costs: {this.CalculateTravelCosts()}";
 
             return format.Replace(',', '.');
         }

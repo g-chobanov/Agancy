@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ICargoShip } from '../models/cargo-ship.model';
+import { TransformToModelService } from './transform-to-model.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TransformToCargoShipService {
-
-  formToCargoShip(form: any) : ICargoShip {
+export class TransformToCargoShipService implements TransformToModelService<ICargoShip> {
+  transformFromForm(form: any): ICargoShip {
     let newCargoShip: ICargoShip = { 
       id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       passengerCapacity: form.get('passengerCapacity')?.value,
@@ -15,8 +15,7 @@ export class TransformToCargoShipService {
     };
     return newCargoShip;
   }
-
-  jsonToCargoShip(json: any): ICargoShip {
+  transformFromJson(json: any): ICargoShip {
     let newCargoShip: ICargoShip = {
       id: json['id'],
       passengerCapacity: json['passengerCapacity'],
@@ -24,5 +23,6 @@ export class TransformToCargoShipService {
       storage: json['storage']
     };
     return newCargoShip;
-  } 
+  }
+
 }

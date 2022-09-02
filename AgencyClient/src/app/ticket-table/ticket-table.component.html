@@ -1,0 +1,25 @@
+<div class="table-panel">
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Administrative Costs</th>
+                <th>Journey info</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ticket-table-row *ngFor="let ticket of tickets; let i = index"
+                [ticket]="ticket"
+                [rowIndex]="i"
+                (deletedIndex)="onElementDeleted($event)">
+            </tr>    
+        </tbody>
+        <add-button 
+            [entityType]="entityType"
+            [tableElements]="tickets">
+        </add-button>
+    </table>
+</div>
+

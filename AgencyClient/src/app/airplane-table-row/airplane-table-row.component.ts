@@ -8,10 +8,14 @@ import { AirplaneService } from '../services/airplane.service';
   styleUrls: ['./airplane-table-row.component.css']
 })
 export class AirplaneTableRowComponent  {
-  @Input() airplane!: IAirplane ;
-  @Input() rowIndex!: number;
+  @Input() 
+  airplane!: IAirplane ;
 
-  @Output() deletedIndex = new EventEmitter<number>();
+  @Input() 
+  rowIndex!: number;
+
+  @Output() 
+  deletedIndex = new EventEmitter<number>();
 
   isEditing: boolean = false;
 
@@ -23,7 +27,6 @@ export class AirplaneTableRowComponent  {
     this._service.delete(this.airplane.id).
       subscribe(
         data => {
-          console.log(data);
           this.deletedIndex.emit(this.rowIndex);
         }
       )

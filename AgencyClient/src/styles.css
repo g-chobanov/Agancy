@@ -1,12 +1,143 @@
 /* You can add global styles to this file, and also import other style files */
 form {
-    width: 200px;
-    display: flex;
-    flex-direction: column;    
-    background-color: darkseagreen;
+    min-width: 200px;
+    background-color: rgb(72, 106, 170);
+    border: 0.5px solid rgb(72, 106, 170);
     position: absolute;
+    display: flex;
+    flex-direction: column; 
+    padding: 10px 0px;
+    line-height: 25px;
+    
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;   
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+    margin: auto;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+body {
+    margin: 0 0;
+    background-color:rgb(49, 71, 110);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .input {
-    width: 50%;
+    width: 50%;  
 }
+
+nav {
+    background-color:rgb(72, 106, 170);
+    border: solid 3px rgb(75, 107, 167);
+    border-radius: 2px;
+}
+
+header {
+    background-color: rgb(95, 164, 233);
+    height: 200px;
+    text-align: center;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-evenly;
+    list-style-type: none;
+    text-transform: uppercase;
+
+}
+
+.header-text {
+    font-size: 112px;
+    color: azure;
+    margin: auto;
+    padding-top: 0.3em;
+    text-transform: uppercase;
+}
+
+a { 
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+
+button {
+    width: 50px;
+    border: 1px solid black;
+}
+
+table {
+    margin: auto;
+    width: 600px;
+    text-align: left;
+    border-spacing: 0;
+    
+}
+
+thead , tbody {
+    background-color: rgb(69, 111, 153);
+    border-right: 1px solid rgb(140, 184, 228);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+    margin: auto;
+    text-align: center;
+}
+
+td, th  {
+    border-right: 1px solid rgb(50, 89, 128);
+    border-bottom: 1px solid rgb(50, 89, 128);
+    padding: 5px 0px;
+    
+}
+
+th {
+    font-weight: normal;
+}
+
+td.edit-cell{
+    display: flex;
+    justify-content: space-evenly;
+    justify-items: stretch;
+}
+
+.table-panel {
+    padding-top: 4em;
+    margin: auto;
+}
+button {
+    width: 65px;
+    height: 25px;
+    padding: 5px;
+    color: white;
+    text-shadow: 3cm;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-transform: uppercase;
+    font-size: 14px;
+    background-color: rgb(100, 154, 209);
+    border: 1px solid rgb(100, 154, 209);
+}
+
+button:hover {
+    background-color: rgb(73, 150, 226);
+    border: 1px solid rgb(73, 150, 226);
+    cursor: pointer;
+}
+
+button:focus {
+    background-color: rgb(54, 139, 224);
+    border: 1px solid rgb(54, 139, 224);
+}
+
+div.form-buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+

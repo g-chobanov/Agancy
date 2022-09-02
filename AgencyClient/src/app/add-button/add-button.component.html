@@ -1,4 +1,4 @@
-<button (click)="onAdd()">Add</button>
+<button class="add" (click)="onAdd()">Add</button>
 <airplane-form *ngIf="entityType === allEntityTypes.Airplane && isCreating"
     [isCreating]="isCreating"
     (isCancelled)="onFormCancelled()"
@@ -24,3 +24,13 @@
     (isCancelled)="onFormCancelled()"
     (formInfo)="onFormSubmitted($event)">
 </train-form>   
+<journey-form *ngIf="entityType === allEntityTypes.Journey && isCreating"
+    [isCreating]="isCreating"
+    (isCancelled)="onFormCancelled()"
+    (formInfo)="onFormSubmitted($event)">
+</journey-form>   
+<ticket-form *ngIf="entityType === allEntityTypes.Ticket && isCreating"
+    [isCreating]="isCreating"
+    (isCancelled)="onFormCancelled()"
+    (formInfo)="onFormSubmitted($event)">
+</ticket-form>   

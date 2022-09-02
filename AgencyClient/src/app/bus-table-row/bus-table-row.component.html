@@ -1,9 +1,12 @@
 <td> {{ bus.passengerCapacity }} </td>
 <td> {{ bus.pricePerKilometer }} </td>
-<button (click)="onEditClick()"> edit </button>
-<bus-form *ngIf="isEditing" 
-    [isEditing]="isEditing"
-    [editedRow]="bus.id"
-    (isCancelled)="onFormCancelled()"
-    (formInfo)="onFormSubmitted($event)"></bus-form>
-<button (click)="deleteElement()"> remove </button>
+<td class="edit-cell">
+    <button (click)="onEditClick()"> edit </button>
+    <bus-form *ngIf="isEditing" 
+        [isEditing]="isEditing"
+        [editedRow]="bus.id"
+        (isCancelled)="onFormCancelled()"
+        (formInfo)="onFormSubmitted($event)">
+    </bus-form>
+    <button (click)="deleteElement()"> remove </button>
+</td>

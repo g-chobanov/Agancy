@@ -32,22 +32,22 @@ export class BusFormComponent  {
   }
 
   onCreate() {
-    let newBus: IBus = this._transformService.formToBus(this.form);
+    let newBus: IBus = this._transformService.transformFromForm(this.form);
     this._busService.create(newBus)
       .subscribe(data => { 
         console.log(data);
-        this.formInfo.emit(this._transformService.jsonToBus(data));
+        this.formInfo.emit(this._transformService.transformFromJson(data));
         this.onCancel(); 
       });
    
   }
 
   onEdit() {
-    let newBus: IBus = this._transformService.formToBus(this.form);
+    let newBus: IBus = this._transformService.transformFromForm(this.form);
     newBus.id = this.editedRow;
     this._busService.update(newBus)
       .subscribe(data => { 
-        this.formInfo.emit(this._transformService.jsonToBus(data));
+        this.formInfo.emit(this._transformService.transformFromJson(data));
         this.onCancel(); 
       });
   }

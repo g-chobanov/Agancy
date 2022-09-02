@@ -16,8 +16,7 @@ namespace Agency.Core.Contracts
 
         Task<VehicleDTO> GetVehicleAsync(Guid id);
 
-        Task<List<VehicleDTO>> GetVehiclesByTypeAsync(VehicleType type);
+        Task DeleteVehicleAsync(Guid ID);
 
-       
     }
 }

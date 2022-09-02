@@ -25,20 +25,21 @@ namespace Agency.Core
         }
 
         //validate here
-        public async Task<bool> CreateJourneyAsync(JourneyDTO journeyDTO)
+        public async Task<JourneyDTO> CreateJourneyAsync(JourneyDTO journeyDTO)
         {
             Vehicle vehicle = await _context.Vehicles.FirstOrDefaultAsync(t => t.ID == journeyDTO.VehicleID);
             if (vehicle == null)
             {
-                return false;
+                throw new ArgumentNullException("Vehicle not found!");
             }
             var newJourney = new Journey();
             _ = newJourney.TakeFromDTO(journeyDTO);
+            newJourney.ID = Guid.NewGuid();
             await _context.Journeys.AddAsync(newJourney);
 
             await _context.SaveChangesAsync();
 
-            return true;
+            return newJourney.ToDTO();
         }
 
         public async Task<JourneyDTO> GetJourneyAsync(Guid ID)
@@ -56,7 +57,19 @@ namespace Agency.Core
             return await _context.Journeys.Select(t => t.ToDTO()).ToListAsync();
         }
 
-        
+        public async Task<string> GetJourneyStringInfoAsync(Guid ID)
+        {
+            var journey = await _context.Journeys
+                .Include(t => t.Vehicle)
+                .FirstOrDefaultAsync(t => t.ID == ID);
+            if (journey == null)
+            {
+                throw new ArgumentNullException("Journey not found!");
+            }
+            return journey.ToString();
+        }
+
+
         public async Task DeleteJourneyAsync(Guid ID)
         {
             var journey = await _context.Journeys.FirstOrDefaultAsync(t => t.ID == ID);
@@ -69,7 +82,7 @@ namespace Agency.Core
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateJourneyAsync(JourneyDTO journeyDTO)
+        public async Task<JourneyDTO> UpdateJourneyAsync(JourneyDTO journeyDTO)
         {
             var journey = await _context.Journeys.FirstOrDefaultAsync(t => t.ID == journeyDTO.ID);
             if (journey == null)
@@ -79,6 +92,8 @@ namespace Agency.Core
             _ = journey.TakeFromDTO(journeyDTO);
 
             await _context.SaveChangesAsync();
+
+            return journeyDTO;
         }
 
         public async Task<decimal> GetTravelCostsAsync(Guid ID)
@@ -93,5 +108,7 @@ namespace Agency.Core
             return journey.CalculateTravelCosts();
 
         }
+
+       
     }
 }

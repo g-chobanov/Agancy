@@ -31,21 +31,21 @@ export class AirplaneFormComponent  {
   }
 
   onCreate() {
-    let newAirplane: IAirplane = this._transformService.formToAirplane(this.form);
+    let newAirplane: IAirplane = this._transformService.transformFromForm(this.form);
     this._airplaneService.create(newAirplane)
       .subscribe(data => { 
-        this.formInfo.emit(this._transformService.jsonToAirplane(data));
+        this.formInfo.emit(this._transformService.transformFromJson(data));
         this.onCancel(); 
       });
    
   }
 
   onEdit() {
-    let newAirplane: IAirplane = this._transformService.formToAirplane(this.form);
+    let newAirplane: IAirplane = this._transformService.transformFromForm(this.form);
     newAirplane.id = this.editedRow;
     this._airplaneService.update(newAirplane)
       .subscribe(data => { 
-        this.formInfo.emit(this._transformService.jsonToAirplane(data));
+        this.formInfo.emit(this._transformService.transformFromJson(data));
         this.onCancel(); 
       });
   }

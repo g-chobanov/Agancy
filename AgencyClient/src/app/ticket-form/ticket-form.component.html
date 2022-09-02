@@ -1,0 +1,27 @@
+<form [formGroup]="form">
+    <div class="form-group">
+        <label for="administrativeCosts">Administrative Costs</label>
+        <input 
+            formControlName="administrativeCosts"
+            id="administrativeCosts"
+            type="number"
+            class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="journeyID">Journey</label>
+        <select
+            formControlName="journeyID"
+            id="journeyID"
+            type="string"
+            class="form-control">
+            <option *ngFor="let journey of availableJourneys" [value]="journey.id">
+                {{ journey.id }} - ({{ journey.startLocation}} - {{journey.destination}})
+            </option>
+        </select>
+    </div>
+    <div class="form-buttons">
+        <button type="button" *ngIf="isCreating" (click)="onCreate()">Create</button>
+        <button type="button" *ngIf="isEditing" (click)="onEdit()">Save</button>
+        <button type="button" (click)="onCancel()">Cancel</button>
+    </div>  
+</form>

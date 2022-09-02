@@ -32,21 +32,21 @@ export class TrainFormComponent {
   }
 
   onCreate() {
-    let newTrain: ITrain = this._transformService.formToTrain(this.form);
+    let newTrain: ITrain = this._transformService.transformFromForm(this.form);
     this._trainService.create(newTrain)
       .subscribe(data => { 
-        this.formInfo.emit(this._transformService.jsonToTrain(data));
+        this.formInfo.emit(this._transformService.transformFromJson(data));
         this.onCancel(); 
       });
    
   }
 
   onEdit() {
-    let newTrain: ITrain = this._transformService.formToTrain(this.form);
+    let newTrain: ITrain = this._transformService.transformFromForm(this.form);
     newTrain.id = this.editedRow;
     this._trainService.update(newTrain)
       .subscribe(data => { 
-        this.formInfo.emit(this._transformService.jsonToTrain(data));
+        this.formInfo.emit(this._transformService.transformFromJson(data));
         this.onCancel(); 
       });
   }

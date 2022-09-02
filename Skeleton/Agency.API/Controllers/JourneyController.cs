@@ -28,8 +28,13 @@ namespace Agency.API.Controllers
         {
             return await _service.GetJourneysAsync();
         }
+        [HttpGet("GetJourneyStringInfo")]
+        public async Task<string> GetJourneyStringInfo(Guid id)
+        {
+            return await _service.GetJourneyStringInfoAsync(id);
+        }
         [HttpPost("CreateJourney")]
-        public async Task<bool> CreateJourney([FromBody] JourneyDTO journey)
+        public async Task<JourneyDTO> CreateJourney([FromBody] JourneyDTO journey)
         {
             return await _service.CreateJourneyAsync(journey);
         }
@@ -39,14 +44,14 @@ namespace Agency.API.Controllers
             await _service.DeleteJourneyAsync(index);
         }
         [HttpPut("UpdateJourney")]
-        public async Task UpdateJourney([FromBody] JourneyDTO journey)
+        public async Task<JourneyDTO> UpdateJourney([FromBody] JourneyDTO journey)
         {
-            await _service.UpdateJourneyAsync(journey);
+            return await _service.UpdateJourneyAsync(journey);
         }
-        [HttpPost("GetTravelCosts")]
-        public async Task<decimal> testing(Guid ID)
+        [HttpGet("GetTravelCosts")]
+        public async Task<decimal> GetTravelCosts(Guid id)
         {
-             return await _service.GetTravelCostsAsync(ID);
+             return await _service.GetTravelCostsAsync(id);
         }
     }
     

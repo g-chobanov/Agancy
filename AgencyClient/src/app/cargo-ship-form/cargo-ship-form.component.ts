@@ -32,22 +32,22 @@ export class CargoShipFormComponent  {
   }
 
   onCreate() {
-    let newCargoShip: ICargoShip = this._transformService.formToCargoShip(this.form);
+    let newCargoShip: ICargoShip = this._transformService.transformFromForm(this.form);
     this._cargoShipService.create(newCargoShip)
       .subscribe(data => { 
         console.log(data);
-        this.formInfo.emit(this._transformService.jsonToCargoShip(data));
+        this.formInfo.emit(this._transformService.transformFromJson(data));
         this.onCancel(); 
       });
    
   }
 
   onEdit() {
-    let newCargoShip: ICargoShip = this._transformService.formToCargoShip(this.form);
+    let newCargoShip: ICargoShip = this._transformService.transformFromForm(this.form);
     newCargoShip.id = this.editedRow;
     this._cargoShipService.update(newCargoShip)
       .subscribe(data => { 
-        this.formInfo.emit(this._transformService.jsonToCargoShip(data));
+        this.formInfo.emit(this._transformService.transformFromJson(data));
         this.onCancel(); 
       });
   }

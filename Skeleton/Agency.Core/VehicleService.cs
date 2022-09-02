@@ -27,14 +27,21 @@ namespace Agency.Core
             var vehicle = await _context.Vehicles.FirstOrDefaultAsync(t => t.ID == ID);
             if (vehicle == null)
             {
-                throw new ArgumentNullException("vehicle does not exist");
+                throw new ArgumentNullException("Vehicle does not exist");
             }
             return vehicle.ToDTO();
         }
 
-        public async Task<List<VehicleDTO>> GetVehiclesByTypeAsync(VehicleType type)
+        public async Task DeleteVehicleAsync(Guid ID)
         {
-            return await _context.Vehicles.Where(t => t.Type == type).Select(t => t.ToDTO()).ToListAsync();
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(t => t.ID == ID);
+            if (vehicle == null)
+            {
+                throw new ArgumentNullException("Vehicle doesn't exist");
+            }
+            _context.Vehicles.Remove(vehicle);
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<VehicleDTO>> GetVehiclesAsync()

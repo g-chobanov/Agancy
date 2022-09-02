@@ -1,0 +1,19 @@
+<td> {{ journey.id }} </td>
+<td> {{ journey.startLocation }} </td>
+<td> {{ journey.destination }} </td>
+<td> {{ journey.distance }} </td>
+<td> 
+     {{ journey.vehicleID }} 
+     <p> {{ vehicleInfo }}</p>
+</td>
+<td>  {{ travelCosts }} </td>
+<td class="edit-cell">
+    <button (click)="onEditClick()"> edit </button>
+    <journey-form *ngIf="isEditing" 
+        [isEditing]="isEditing"
+        [editedRow]="journey.id"
+        (isCancelled)="onFormCancelled()"
+        (formInfo)="onFormSubmitted($event)">
+    </journey-form>
+    <button id="remove"(click)="deleteElement()"> remove </button>
+</td>

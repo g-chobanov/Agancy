@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { IAirplane } from '../models/airplane.model';
+import { TransformToModelService } from './transform-to-model.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TransformToAirplaneService {
-
-  formToAirplane(form: any) : IAirplane {
+export class TransformToAirplaneService implements TransformToModelService<IAirplane> {
+  transformFromForm(form: any): IAirplane {
     let newAirplane: IAirplane = { 
       id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       passengerCapacity: form.get('passengerCapacity')?.value,
@@ -15,8 +15,7 @@ export class TransformToAirplaneService {
     };
     return newAirplane;
   }
-
-  jsonToAirplane(json: any): IAirplane {
+  transformFromJson(json: any): IAirplane {
     let newAirplane: IAirplane = {
       id: json['id'],
       passengerCapacity: json['passengerCapacity'],
@@ -24,5 +23,5 @@ export class TransformToAirplaneService {
       hasFreeFood: json['hasFreeFood']
     };
     return newAirplane;
-  } 
+  }
 }

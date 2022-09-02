@@ -29,10 +29,10 @@ namespace Agency.API.Controllers
             return await _service.GetVehiclesAsync();
         }
 
-        [HttpGet("GetVehiclesByType")]
-        public async Task<List<VehicleDTO>> GetAllVehiclesByType(VehicleType type)
+        [HttpDelete("DeleteVehicle")]
+        public async Task DeleteVehicle(Guid id)
         {
-            return await _service.GetVehiclesByTypeAsync(type);
+             await _service.DeleteVehicleAsync(id);
         }
 
     }

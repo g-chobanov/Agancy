@@ -32,21 +32,21 @@ export class TruckFormComponent {
   }
 
   onCreate() {
-    let newTruck: ITruck = this._transformService.formToTruck(this.form);
+    let newTruck: ITruck = this._transformService.transformFromForm(this.form);
     this._truckService.create(newTruck)
       .subscribe(data => { 
-        this.formInfo.emit(this._transformService.jsonToTruck(data));
+        this.formInfo.emit(this._transformService.transformFromJson(data));
         this.onCancel(); 
       });
    
   }
 
   onEdit() {
-    let newTruck: ITruck = this._transformService.formToTruck(this.form);
+    let newTruck: ITruck = this._transformService.transformFromForm(this.form);
     newTruck.id = this.editedRow;
     this._truckService.update(newTruck)
       .subscribe(data => { 
-        this.formInfo.emit(this._transformService.jsonToTruck(data));
+        this.formInfo.emit(this._transformService.transformFromJson(data));
         this.onCancel(); 
       });
   }

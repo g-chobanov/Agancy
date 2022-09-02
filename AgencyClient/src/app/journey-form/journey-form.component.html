@@ -1,0 +1,43 @@
+<form [formGroup]="form">
+    <div class="form-group">
+        <label for="startLocation">Start Location</label>
+        <input 
+            formControlName="startLocation"
+            id="startLocation"
+            type="string"
+            class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="destination">Destination</label>
+        <input 
+            formControlName="destination"
+            id="destination"
+            type="string"
+            class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="distance">Distance</label>
+        <input 
+            formControlName="distance"
+            id="distance"
+            type="number"
+            class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="vehicleID">Vehicle</label>
+        <select
+            formControlName="vehicleID"
+            id="vehicleID"
+            type="string"
+            class="form-control">
+            <option *ngFor="let vehicle of availableVehicles" [value]="vehicle.id">
+                {{ vehicle.id }} - {{ vehicle.stringVehicleInfo | modeltype }}
+            </option>
+        </select>
+    </div>
+    <div class="form-buttons">
+        <button type="button" *ngIf="isCreating" (click)="onCreate()">Create</button>
+        <button type="button" *ngIf="isEditing" (click)="onEdit()">Save</button>
+        <button type="button" (click)="onCancel()">Cancel</button>
+    </div>  
+</form>

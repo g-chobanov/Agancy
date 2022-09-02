@@ -1,0 +1,18 @@
+<div class="table-panel">
+    <table class="vehicle-table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Vehicle Info</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr vehicle-table-row *ngFor="let vehicle of vehicles; let i = index"
+                [vehicle]="vehicle"
+                [rowIndex]="i"
+                (deletedIndex)="onElementDeleted($event)">
+            </tr>    
+        </tbody>
+    </table>
+</div>

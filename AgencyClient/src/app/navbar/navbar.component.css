@@ -1,0 +1,8 @@
+.active {
+    text-decoration: underline;
+}
+
+.current {
+    text-decoration-line: underline;
+    text-decoration-thickness: 3px;
+}
