@@ -15,20 +15,11 @@ namespace Agency.Models.Vehicles
     [Table("Buses")]
     public class Bus : Vehicle, IBus
     {
-        private const int _maxBusPassengers = 50;
-        private const int _minBusPassengers = 10;
-
         [Key]
         public override Guid ID { get; set; }
-
-        [Range(_minBusPassengers, _maxBusPassengers, ErrorMessage = "A bus cannot have less than {1} passengers or more than {2} passengers.")]
         public override int PassengerCapacity { get; set; }
-
-        [Range(((double)IVehicle._minPricePerKillometer), ((double)IVehicle._maxPricePerKillometer), ErrorMessage = "A vehicle with a price per kilometer lower than $0.10 or higher than $2.50 cannot exist!")]
         public override decimal PricePerKilometer { get; set; }
-
         public override VehicleType Type { get; set; }
-
         public override VehicleClassType ClassType => VehicleClassType.Bus;
         public Bus()
         {

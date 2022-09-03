@@ -19,7 +19,6 @@ namespace Agency.Models.Vehicles
 
         public override int PassengerCapacity { get; set; }
 
-        [Range(((double)IVehicle._minPricePerKillometer), ((double)IVehicle._maxPricePerKillometer), ErrorMessage = "A vehicle with a price per kilometer lower than $0.10 or higher than $2.50 cannot exist!")]
         public override decimal PricePerKilometer { get; set; }
 
         public bool HasFreeFood { get; set;  }
