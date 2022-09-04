@@ -40,4 +40,7 @@
         <button type="button" *ngIf="isEditing" (click)="onEdit()">Save</button>
         <button type="button" (click)="onCancel()">Cancel</button>
     </div>  
+    <div class="error" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
 </form>

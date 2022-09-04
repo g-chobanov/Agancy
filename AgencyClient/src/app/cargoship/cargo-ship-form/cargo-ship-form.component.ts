@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { AppError } from 'src/app/common/app-error';
+import { BadRequestError } from 'src/app/common/bad-request-error';
 import { ICargoShip } from '../../models/cargo-ship.model';
 import { CargoShipService } from '../../services/cargo-ship.service';
 import { TransformToCargoShipService } from '../../services/transform-to-cargo-ship.service';
@@ -10,14 +12,20 @@ import { TransformToCargoShipService } from '../../services/transform-to-cargo-s
   styleUrls: ['./cargo-ship-form.component.css']
 })
 export class CargoShipFormComponent  {
-  @Input() isEditing: boolean = false;
-  @Input() isCreating: boolean = false;
-  @Input() editedRow!: string;
+  @Input() 
+  isEditing: boolean = false;
+  @Input()
+  isCreating: boolean = false;
+  @Input() 
+  editedRow!: string;
 
-  @Output() formInfo = new EventEmitter();
-  @Output() isCancelled = new EventEmitter();
+  @Output() 
+  formInfo = new EventEmitter();
+  @Output() 
+  isCancelled = new EventEmitter();
 
   form: FormGroup;
+  errorMessage?: string;
 
   constructor(
     fb: FormBuilder, 
@@ -32,28 +40,55 @@ export class CargoShipFormComponent  {
   }
 
   onCreate() {
+    this.errorMessage = undefined;
     let newCargoShip: ICargoShip = this._transformService.transformFromForm(this.form);
     this._cargoShipService.create(newCargoShip)
-      .subscribe(data => { 
-        console.log(data);
-        this.formInfo.emit(this._transformService.transformFromJson(data));
-        this.onCancel(); 
+      .subscribe({
+        next: (response) => { 
+          this.formInfo.emit(this._transformService.transformFromJson(response));
+          this.onCancel(); 
+        }, 
+        error : (error: AppError) => {
+          if(error instanceof BadRequestError) {
+            this.setErrors(error.originalError.errors);
+          } else {
+            throw error;
+          }
+        }
       });
    
   }
 
   onEdit() {
+    this.errorMessage = undefined;
     let newCargoShip: ICargoShip = this._transformService.transformFromForm(this.form);
-    newCargoShip.id = this.editedRow;
     this._cargoShipService.update(newCargoShip)
-      .subscribe(data => { 
-        this.formInfo.emit(this._transformService.transformFromJson(data));
-        this.onCancel(); 
+      .subscribe({
+        next: (response) => { 
+          this.formInfo.emit(this._transformService.transformFromJson(response));
+          this.onCancel(); 
+        }, 
+        error : (error: AppError) => {
+          if(error instanceof BadRequestError) {
+            this.setErrors(error.originalError.errors);
+          } else {
+            throw error;
+          }
+        }
       });
   }
 
   onCancel() {
     this.isCancelled.emit();
+  }
+
+  private setErrors(errorMessage: any){
+    let temp: string = " ";
+    Object.keys(errorMessage).forEach( key => {
+      temp += errorMessage[key] + "\n";
+    });
+    this.errorMessage = temp;
+
   }
 
 

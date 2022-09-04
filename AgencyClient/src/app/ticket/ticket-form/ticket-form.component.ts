@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { AppError } from 'src/app/common/app-error';
+import { BadRequestError } from 'src/app/common/bad-request-error';
 import { IJourney } from '../../models/journey.model';
 import { ITicket } from '../../models/ticket.model';
 import { JourneyService } from '../../services/journey.service';
@@ -13,16 +15,22 @@ import { TransformToTicketService } from '../../services/transform-to-ticket.ser
 })
 export class TicketFormComponent implements OnInit {
 
-  @Input() isEditing: boolean = false;
-  @Input() isCreating: boolean = false;
-  @Input() editedRow!: string;
+  @Input() 
+  isEditing: boolean = false;
+  @Input() 
+  isCreating: boolean = false;
+  @Input() 
+  editedRow!: string;
 
-  @Output() formInfo = new EventEmitter();
-  @Output() isCancelled = new EventEmitter();
+  @Output() 
+  formInfo = new EventEmitter();
+  @Output() 
+  isCancelled = new EventEmitter();
 
   availableJourneys!: IJourney[];
   showPrice: boolean = false;
   showJourneyInfo: boolean = false;
+  errorMessage?: string;
 
   form: FormGroup;
   constructor(
@@ -42,26 +50,54 @@ export class TicketFormComponent implements OnInit {
   }
 
   onCreate() {
+    this.errorMessage = undefined;
     let newTicket: ITicket = this._transformService.transformFromForm(this.form);
     this._ticketService.create(newTicket)
-      .subscribe(data => { 
-        this.formInfo.emit(this._transformService.transformFromJson(data));
-        this.onCancel(); 
+      .subscribe({
+        next: (response) => { 
+          this.formInfo.emit(this._transformService.transformFromJson(response));
+          this.onCancel(); 
+        }, 
+        error : (error: AppError) => {
+          if(error instanceof BadRequestError) {
+            this.setErrors(error.originalError.errors);
+          } else {
+            throw error;
+          }
+        }
       });
    
   }
 
   onEdit() {
+    this.errorMessage = undefined;
     let newTicket: ITicket = this._transformService.transformFromForm(this.form);
-    newTicket.id = this.editedRow;
     this._ticketService.update(newTicket)
-      .subscribe(data => { 
-        this.formInfo.emit(this._transformService.transformFromJson(data));
-        this.onCancel(); 
+      .subscribe({
+        next: (response) => { 
+          this.formInfo.emit(this._transformService.transformFromJson(response));
+          this.onCancel(); 
+        }, 
+        error : (error: AppError) => {
+          if(error instanceof BadRequestError) {
+            this.setErrors(error.originalError.errors);
+          } else {
+            throw error;
+          }
+        }
       });
   }
 
   onCancel() {
     this.isCancelled.emit();
+  }
+
+  private setErrors(errorMessage: any){
+    let temp: string = " ";
+    Object.keys(errorMessage).forEach( key => {
+      temp += errorMessage[key] + "\n";
+    });
+    this.errorMessage = temp;
+
   }
 }

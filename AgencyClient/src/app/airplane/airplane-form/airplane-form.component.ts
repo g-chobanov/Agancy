@@ -5,7 +5,6 @@ import { IAirplane } from '../../models/airplane.model';
 import { TransformToAirplaneService } from '../../services/transform-to-airplane.service';
 import { AppError } from '../../common/app-error';
 import { BadRequestError } from '../../common/bad-request-error';
-import { AppErrorHandler } from 'src/app/common/app-error-handler';
 
 @Component({
   selector: 'airplane-form',
@@ -66,11 +65,19 @@ export class AirplaneFormComponent  {
   onEdit() {
     this.errorMessage = undefined;
     let newAirplane: IAirplane = this._transformService.transformFromForm(this.form);
-    newAirplane.id = this.editedRow;
     this._airplaneService.update(newAirplane)
-      .subscribe(data => { 
-        this.formInfo.emit(this._transformService.transformFromJson(data));
-        this.onCancel(); 
+      .subscribe({
+        next: (response) => { 
+          this.formInfo.emit(this._transformService.transformFromJson(response));
+          this.onCancel(); 
+        }, 
+        error : (error: AppError) => {
+          if(error instanceof BadRequestError) {
+            this.setErrors(error.originalError.errors);
+          } else {
+            throw error;
+          }
+        }
       });
   }
 

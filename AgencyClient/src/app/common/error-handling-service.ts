@@ -9,7 +9,6 @@ export class ErrorHandlingService {
           return throwError(() => new BadRequestError(error))
         }
         if(error.status === 404) {
-          alert("not found");
           return throwError(() => new NotFound(error))
         }
     
