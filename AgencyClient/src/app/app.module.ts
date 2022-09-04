@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -42,6 +42,7 @@ import { TicketTableComponent } from './ticket/ticket-table/ticket-table.compone
 import { TicketTableRowComponent } from './ticket/ticket-table-row/ticket-table-row.component';
 import { ModelTypePipe } from './pipes/modeltype.pipe';
 import { TicketFormComponent } from './ticket/ticket-form/ticket-form.component';
+import { AppErrorHandler } from './common/app-error-handler';
 
 @NgModule({
   declarations: [
@@ -127,7 +128,11 @@ import { TicketFormComponent } from './ticket/ticket-form/ticket-form.component'
     TransformToBusService,
     TransformToCargoShipService,
     TransformToTrainService,
-    TransformToTruckService
+    TransformToTruckService,
+    {
+      provide: ErrorHandler,
+      useClass: AppErrorHandler
+    }
   ],
   bootstrap: [AppComponent]
 })

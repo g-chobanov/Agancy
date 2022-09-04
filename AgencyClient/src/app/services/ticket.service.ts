@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { ITicket } from '../models/ticket.model';
 import { JourneyService } from './journey.service';
 import { ModelService } from './model.service';
@@ -23,10 +23,18 @@ export class TicketService extends ModelService<ITicket> {
    }
 
    getPrice(id: string) : Observable<number>{
-      return this.http.get<number>(this.hostUrl + this.priceUrl + "?id=" + id);
+      return this.http.get<number>(this.hostUrl + this.priceUrl + "?id=" + id)
+      .pipe( 
+        catchError((error) => {
+          return this.handleError(error.error);
+        }));
    }
 
    getJourneyInfo(id: string) : Observable<string> {
-      return this._journeyService.getStringInfo(id);
+      return this._journeyService.getStringInfo(id)
+      .pipe( 
+        catchError((error) => {
+          return this.handleError(error.error);
+        }));
    }
 }
