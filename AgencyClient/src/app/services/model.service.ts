@@ -1,14 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
-import { AppError } from '../common/app-error';
-import { BadRequestError } from '../common/bad-request-error';
+import { catchError, Observable } from 'rxjs';
 import { ErrorHandlingService } from '../common/error-handling-service';
 import { GlobalConstants } from '../common/globalconstants';
-import { NotFound } from '../common/not-found-error';
 
 export class ModelService<T> extends ErrorHandlingService{
 
-  protected readonly hostUrl: string = GlobalConstants.apiURL;
+  protected hostUrl: string = GlobalConstants.apiURL;
   protected headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
   constructor(
