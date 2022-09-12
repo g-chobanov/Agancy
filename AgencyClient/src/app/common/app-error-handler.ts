@@ -9,8 +9,8 @@ export class AppErrorHandler implements ErrorHandler {
             console.log(error);
             return;
         }
-        alert("Whoops. Unexprected error.")
-        console.log(error);
+        alert(`Unexprected error.`)
+        console.log(error.originalError);
     }
 
 }

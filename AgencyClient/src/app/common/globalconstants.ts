@@ -1,3 +1,3 @@
 export class GlobalConstants {
-    public static apiURL: string = "https://localhost:7256";
+    public static apiURL: string = "localhost:7256";
 }
