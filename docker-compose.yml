@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  agencydatabase:
+    container_name: agencydb
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+     - 1433:1433
+    environment: 
+     - ACCEPT_EULA=Y
+     - SA_PASSWORD=plsw0rk4N@W
+  agencyapi:
+    container_name: agencyapi
+    image: ${DOCKER_REGISTRY-}agencyapi
+    build:
+      context: ./Skeleton
+      dockerfile: ./Dockerfile
+    ports:
+      - 7256:80
+    depends_on:
+      - agencydatabase
+    environment: 
+     - DB_HOST=agencydatabase
+     - DB_NAME=Agency
+     - DB_SA_PASSWORD=plsw0rk4N@W
+  agencyweb:
+    container_name: agencyweb
+    image: ${DOCKER_REGISTRY-}agencyweb
+    build: 
+      context: ./AgencyClient
+      dockerfile: ./Dockerfile
+    ports:
+      - 4200:80

@@ -15,13 +15,17 @@ export class BusFormComponent  {
 
   @Input() 
   isEditing: boolean = false;
+
   @Input() 
   isCreating: boolean = false;
+
+  //the id of the row that is being created/edited
   @Input() 
   editedRow!: string;
 
   @Output() 
   formInfo = new EventEmitter();
+  
   @Output() 
   isCancelled = new EventEmitter();
 
@@ -62,6 +66,7 @@ export class BusFormComponent  {
   onEdit() {
     this.errorMessage = undefined;
     let newBus: IBus = this._transformService.transformFromForm(this.form);
+    newBus.id = this.editedRow;
     this._busService.update(newBus)
       .subscribe({
         next: (response) => { 

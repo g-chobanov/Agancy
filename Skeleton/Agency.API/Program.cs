@@ -7,10 +7,15 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Add dbcontext to the container.
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
+var connectionString = $"Data Source={dbHost}; Initial Catalog={dbName};User ID=sa;Password={dbPassword}";
 builder.Services.AddDbContext<AgencyDatabaseContext>(options =>
-    options.UseSqlServer("Data Source=DESKTOP-OHA5UQF\\SQLEXPRESS; Initial Catalog=AgencyDatabase; Integrated Security=True;"));
+    options.UseSqlServer(connectionString));
+
+// Add services to the container.
 builder.Services.AddScoped<ITruckService, TruckService>();
 builder.Services.AddScoped<IBusService, BusService>();
 builder.Services.AddScoped<ITrainService, TrainService>();
@@ -43,5 +48,16 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseCors("corsapp");
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<AgencyDatabaseContext>();
+    if (context.Database.GetPendingMigrations().Any())
+    {
+        context.Database.Migrate();
+    }
+}
 
 app.Run();

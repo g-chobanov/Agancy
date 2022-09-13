@@ -17,13 +17,17 @@ export class TicketFormComponent implements OnInit {
 
   @Input() 
   isEditing: boolean = false;
+
   @Input() 
   isCreating: boolean = false;
+
+  //the id of the row that is being created/edited
   @Input() 
   editedRow!: string;
 
   @Output() 
   formInfo = new EventEmitter();
+
   @Output() 
   isCancelled = new EventEmitter();
 
@@ -72,6 +76,7 @@ export class TicketFormComponent implements OnInit {
   onEdit() {
     this.errorMessage = undefined;
     let newTicket: ITicket = this._transformService.transformFromForm(this.form);
+    newTicket.id = this.editedRow;
     this._ticketService.update(newTicket)
       .subscribe({
         next: (response) => { 

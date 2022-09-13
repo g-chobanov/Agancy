@@ -15,13 +15,17 @@ export class TruckFormComponent {
 
   @Input() 
   isEditing: boolean = false;
+
   @Input() 
   isCreating: boolean = false;
+
+  //the id of the row that is being created/edited
   @Input() 
   editedRow!: string;
 
   @Output() 
   formInfo = new EventEmitter();
+  
   @Output() 
   isCancelled = new EventEmitter();
 
@@ -63,6 +67,7 @@ export class TruckFormComponent {
   onEdit() {
     this.errorMessage = undefined;
     let newTruck: ITruck = this._transformService.transformFromForm(this.form);
+    newTruck.id = this.editedRow;
     this._truckService.update(newTruck)
       .subscribe({
         next: (response) => { 

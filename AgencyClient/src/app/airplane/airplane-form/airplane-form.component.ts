@@ -18,6 +18,7 @@ export class AirplaneFormComponent  {
   @Input() 
   isCreating: boolean = false;
 
+  //the id of the row that is being created/edited
   @Input() 
   editedRow!: string;
 
@@ -65,6 +66,7 @@ export class AirplaneFormComponent  {
   onEdit() {
     this.errorMessage = undefined;
     let newAirplane: IAirplane = this._transformService.transformFromForm(this.form);
+    newAirplane.id = this.editedRow;
     this._airplaneService.update(newAirplane)
       .subscribe({
         next: (response) => { 

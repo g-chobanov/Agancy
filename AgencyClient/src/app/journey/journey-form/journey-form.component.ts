@@ -17,8 +17,11 @@ export class JourneyFormComponent implements OnInit {
 
   @Input() 
   isEditing: boolean = false;
+
   @Input() 
   isCreating: boolean = false;
+
+  //the id of the row that is being created/edited
   @Input() 
   editedRow!: string;
 
@@ -74,6 +77,7 @@ export class JourneyFormComponent implements OnInit {
   onEdit() {
     this.errorMessage = undefined;
     let newJourney: IJourney = this._transformService.transformFromForm(this.form);
+    newJourney.id = this.editedRow;
     this._journeyService.update(newJourney)
       .subscribe({
         next: (response) => { 

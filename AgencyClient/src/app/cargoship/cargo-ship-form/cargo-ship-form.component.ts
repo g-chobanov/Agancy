@@ -16,6 +16,8 @@ export class CargoShipFormComponent  {
   isEditing: boolean = false;
   @Input()
   isCreating: boolean = false;
+
+  //the id of the row that is being created/edited
   @Input() 
   editedRow!: string;
 
@@ -62,6 +64,7 @@ export class CargoShipFormComponent  {
   onEdit() {
     this.errorMessage = undefined;
     let newCargoShip: ICargoShip = this._transformService.transformFromForm(this.form);
+    newCargoShip.id = this.editedRow;
     this._cargoShipService.update(newCargoShip)
       .subscribe({
         next: (response) => { 

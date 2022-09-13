@@ -15,8 +15,11 @@ export class TrainFormComponent {
 
   @Input() 
   isEditing: boolean = false;
+
   @Input()
   isCreating: boolean = false;
+
+  //the id of the row that is being created/edited
   @Input()
   editedRow!: string;
 
@@ -63,6 +66,7 @@ export class TrainFormComponent {
   onEdit() {
     this.errorMessage = undefined;
     let newTrain: ITrain = this._transformService.transformFromForm(this.form);
+    newTrain.id = this.editedRow;
     this._trainService.update(newTrain)
       .subscribe({
         next: (response) => { 
