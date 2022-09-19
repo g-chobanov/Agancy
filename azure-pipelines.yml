@@ -43,4 +43,4 @@ steps:
 - task: Docker@2
   inputs:
     command: 'buildAndPush'
-    Dockerfile: '/Skeleton/Dockerfile'
+    Dockerfile: '**/Skeleton/Dockerfile'
