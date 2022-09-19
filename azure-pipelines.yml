@@ -14,7 +14,7 @@ trigger:
       - AgencyClient
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 variables:
   solution: '**/*.sln'
